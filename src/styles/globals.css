@@ -264,8 +264,10 @@ body {
   background: transparent;
   border: 0;
   padding: 0;
-  color: rgb(var(--color-text) / 0.9);
+  /* pre block is always dark, so keep fixed light code text in any theme */
+  color: rgb(226 232 240 / 0.92);
   font-size: 0.85rem;
+  line-height: 1.7;
 }
 .markdown-body blockquote {
   margin: 1.4em 0;
@@ -279,4 +281,105 @@ body {
   margin: 2.5em 0;
   border: 0;
   border-top: 1px solid rgb(var(--color-border) / 0.6);
+}
+
+/* ---- full markdown syntax coverage ---- */
+.markdown-body h1 {
+  font-size: 1.9rem;
+  font-weight: 800;
+  margin: 1.6em 0 0.7em;
+  line-height: 1.25;
+  color: rgb(var(--color-text));
+}
+.markdown-body h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 1.8em 0 0.6em;
+  color: rgb(var(--color-text));
+}
+.markdown-body h5,
+.markdown-body h6 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 1.6em 0 0.5em;
+  color: rgb(var(--color-muted));
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.markdown-body em { font-style: italic; }
+.markdown-body del,
+.markdown-body s {
+  color: rgb(var(--color-muted));
+  text-decoration: line-through;
+}
+.markdown-body mark {
+  background: rgb(var(--color-accent) / 0.22);
+  color: rgb(var(--color-text));
+  padding: 0.05em 0.35em;
+  border-radius: 4px;
+}
+.markdown-body kbd {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.8em;
+  background: rgb(var(--color-surface) / 0.95);
+  border: 1px solid rgb(var(--color-border) / 0.8);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  padding: 0.1em 0.45em;
+}
+/* nested lists */
+.markdown-body li ul,
+.markdown-body li ol { margin: 0.4em 0 0.2em; }
+.markdown-body ul li::marker { color: rgb(var(--color-accent)); }
+.markdown-body ol li::marker { color: rgb(var(--color-accent)); font-weight: 700; }
+/* GFM task lists */
+.markdown-body ul.contains-task-list,
+.markdown-body ol.contains-task-list { list-style: none; padding-left: 0.6em; }
+.markdown-body li.task-list-item { display: flex; align-items: flex-start; gap: 0.55em; }
+.markdown-body li.task-list-item input[type='checkbox'] {
+  margin-top: 0.5em;
+  accent-color: rgb(var(--color-accent));
+  width: 0.95em;
+  height: 0.95em;
+  flex: none;
+}
+/* blockquote inner spacing */
+.markdown-body blockquote p { margin: 0.5em 0; }
+.markdown-body blockquote p:first-child { margin-top: 0; }
+.markdown-body blockquote p:last-child { margin-bottom: 0; }
+/* tables (GFM) */
+.markdown-body table {
+  width: 100%;
+  margin: 1.4em 0;
+  border-collapse: collapse;
+  display: block;
+  overflow-x: auto;
+  font-size: 0.92rem;
+}
+.markdown-body thead { background: rgb(var(--color-surface) / 0.7); }
+.markdown-body th,
+.markdown-body td {
+  border: 1px solid rgb(var(--color-border) / 0.7);
+  padding: 0.6em 0.9em;
+  text-align: left;
+  white-space: nowrap;
+}
+.markdown-body th { font-weight: 700; color: rgb(var(--color-text)); }
+.markdown-body tbody tr:nth-child(even) { background: rgb(var(--color-surface) / 0.35); }
+/* images */
+.markdown-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.6em auto;
+  border-radius: 14px;
+  border: 1px solid rgb(var(--color-border) / 0.6);
+  box-shadow: 0 12px 40px -18px rgb(0 0 0 / 0.55);
+}
+.markdown-body p > img:only-child { margin-top: 0; }
+/* code block scrollbar */
+.markdown-body pre::-webkit-scrollbar { height: 8px; }
+.markdown-body pre::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-border) / 0.8);
+  border-radius: 8px;
 }

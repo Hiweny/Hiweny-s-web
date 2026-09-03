@@ -18,7 +18,7 @@ import * as THREE from 'three';
 // replace with your own imports, see the usage snippet for details
 import cardGLB from './card.glb';
 import lanyard from './lanyard.png';
-import lanyardCard from './lanyard-card.webp';
+import lanyardCard from './lanyard-card.png';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
@@ -211,10 +211,11 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
   cardTexture.minFilter = THREE.LinearFilter;
   cardTexture.magFilter = THREE.LinearFilter;
   cardTexture.anisotropy = 16;
-  // Contain-fit the illustration on the card face via the texture matrix.
-  const scaleW = 0.667 / 0.716; // image 2:3 is taller-narrower than 0.716:1 card
-  cardTexture.repeat.set(scaleW, 1 / 0.7572); // expand v, centre width
-  cardTexture.offset.set((1 - scaleW) / 2, 0);
+  // The PNG is pre-cropped (lossless) to the card face aspect 0.592:1, so it
+  // fills the face directly. Raw card UVs span u[0.0008,1], v[0.0022,0.7572];
+  // normalise them to 0..1 so the whole cropped image shows, centred & undistorted.
+  cardTexture.repeat.set(1.00083, 1.3245);
+  cardTexture.offset.set(-0.00083, -0.00292);
   cardTexture.needsUpdate = true;
 
   return (

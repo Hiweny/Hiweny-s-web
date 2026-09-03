@@ -3,6 +3,7 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import Magnet from '../components/reactbits/Animations/Magnet/Magnet';
 import StarBorder from '../components/reactbits/Animations/StarBorder/StarBorder';
 import { getArticleBySlug, resolveTitle, splitBody, type Locale } from '../content/articles';
@@ -98,7 +99,27 @@ export const ArticleDetailPage = () => {
       {/* Markdown body */}
       <section className="mb-12">
         <div className="markdown-body">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{body}</ReactMarkdown>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeRaw]}
+            components={{
+              a: ({ href, children, ...props }) => (
+                <a
+                  href={href}
+                  target={href && /^https?:/.test(href) ? '_blank' : undefined}
+                  rel={href && /^https?:/.test(href) ? 'noopener noreferrer' : undefined}
+                  {...props}
+                >
+                  {children}
+                </a>
+              ),
+              img: ({ src, alt }) => (
+                <img src={typeof src === 'string' ? src : ''} alt={alt ?? ''} loading="lazy" decoding="async" />
+              )
+            }}
+          >
+            {body}
+          </ReactMarkdown>
         </div>
       </section>
     </article>
