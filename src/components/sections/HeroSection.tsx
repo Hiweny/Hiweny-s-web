@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import BlurText from '../reactbits/TextAnimations/BlurText/BlurText';
 import { heroSubtitle } from '../../content/about';
-import type { Locale } from '../../content/projects';
+import type { Locale } from '../../content/articles';
 
 export const HeroSection = () => {
   const { t, i18n } = useTranslation();

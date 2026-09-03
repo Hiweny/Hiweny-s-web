@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useMemo, useState, type CSSProperties, type ReactNode } from 'react';
+import { lazy, Suspense, useMemo, type CSSProperties, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SectionLabel } from './SectionLabel';
 
@@ -7,21 +7,6 @@ const Lanyard = lazy(() => import('../reactbits/Components/Lanyard/Lanyard'));
 
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-/** Random anime-image APIs used to fill the contact cards, rotated in turn. */
-const RANDOM_IMG_APIS = [
-  'https://t.alcy.cc/ycy/', // 次元 · 横屏
-  'https://moe.jitsu.top/api', // Jitsu · 二次元
-  'https://www.loliapi.com/acg/pe/' // LoliAPI · 竖屏
-];
-/** Bump a timestamp every `interval` ms so the <img> src re-fetches (rotation). */
-const useRotationTick = (interval = 12000): number => {
-  const [tick, setTick] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setTick(Date.now()), interval);
-    return () => clearInterval(id);
-  }, [interval]);
-  return tick;
-};
 
 const EmailIcon = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -52,8 +37,6 @@ interface ContactMethod {
   gradient: string;
   glow: string;
   external?: boolean;
-  /** Image API used for this card's background (rotated among RANDOM_IMG_APIS). */
-  imgApi?: string;
 }
 
 const CONTACT_METHODS: ContactMethod[] = [
@@ -63,8 +46,7 @@ const CONTACT_METHODS: ContactMethod[] = [
     href: 'mailto:3458096571@qq.com',
     icon: <EmailIcon />,
     gradient: 'linear-gradient(135deg, #A78BFA 0%, #7C3AED 100%)',
-    glow: 'rgba(167, 139, 250, 0.35)',
-    imgApi: RANDOM_IMG_APIS[0]
+    glow: 'rgba(167, 139, 250, 0.35)'
   },
   {
     label: 'GitHub',
@@ -73,8 +55,7 @@ const CONTACT_METHODS: ContactMethod[] = [
     icon: <GitHubIcon />,
     gradient: 'linear-gradient(135deg, #22D3EE 0%, #0EA5E9 100%)',
     glow: 'rgba(34, 211, 238, 0.35)',
-    external: true,
-    imgApi: RANDOM_IMG_APIS[1]
+    external: true
   },
   {
     label: 'QQ',
@@ -83,15 +64,13 @@ const CONTACT_METHODS: ContactMethod[] = [
     icon: <QQIcon />,
     gradient: 'linear-gradient(135deg, #FF50AA 0%, #F97316 100%)',
     glow: 'rgba(255, 80, 170, 0.35)',
-    external: true,
-    imgApi: RANDOM_IMG_APIS[2]
+    external: true
   }
 ];
 
 export const ContactSection = () => {
   const { t } = useTranslation();
   const reduced = useMemo(prefersReducedMotion, []);
-  const rotationTick = useRotationTick();
 
   return (
     <section id="contact" className="mx-auto max-w-6xl px-6 py-16 md:px-12 md:py-20 scroll-mt-28">
@@ -135,7 +114,7 @@ export const ContactSection = () => {
 
           <div className="grid gap-3">
             {CONTACT_METHODS.map((method) => (
-              <ContactCard key={method.label} {...method} rotationTick={rotationTick} />
+              <ContactCard key={method.label} {...method} />
             ))}
           </div>
 
@@ -162,10 +141,8 @@ const ContactCard = ({
   icon,
   gradient,
   glow,
-  external,
-  imgApi,
-  rotationTick = 0
-}: ContactMethod & { rotationTick?: number }) => (
+  external
+}: ContactMethod) => (
   <a
     href={href}
     target={external ? '_blank' : undefined}
@@ -173,22 +150,6 @@ const ContactCard = ({
     className="group relative overflow-hidden rounded-2xl border border-white/10 bg-surface/50 p-4 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-white/20"
     style={{ '--glow-color': glow } as CSSProperties}
   >
-    {imgApi ? (
-      <>
-        <img
-          src={`${imgApi}${imgApi.includes('?') ? '&' : '?'}t=${rotationTick || 1}`}
-          alt=""
-          aria-hidden
-          referrerPolicy="no-referrer"
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover opacity-30 transition-opacity duration-700"
-        />
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/20"
-        />
-      </>
-    ) : null}
     <span
       aria-hidden
       className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"

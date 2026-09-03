@@ -14,7 +14,7 @@ export const SiteNav = () => {
   const isZh = i18n.language.startsWith('zh');
   const items = [
     { label: 'Home', ariaLabel: 'Home', link: hrefFor('/#hero') },
-    { label: t('section.projects'), ariaLabel: t('section.projects'), link: hrefFor('/#projects') },
+    { label: t('section.articles'), ariaLabel: t('section.articles'), link: hrefFor('/#articles') },
     { label: t('section.contact'), ariaLabel: t('section.contact'), link: hrefFor('/#contact') },
     { label: t('section.credits'), ariaLabel: t('section.credits'), link: hrefFor('/credits') }
   ];

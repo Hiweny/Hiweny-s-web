@@ -6,7 +6,7 @@ const resources = {
     translation: {
       nav: {
         about: 'about',
-        projects: 'projects',
+        articles: 'articles',
         contact: 'contact',
         credits: 'credits'
       },
@@ -17,9 +17,16 @@ const resources = {
       },
       section: {
         about: 'About',
-        projects: 'Projects',
+        articles: '文章',
         contact: 'Contact',
         credits: 'Credits'
+      },
+      article: {
+        backToArticles: '← 返回文章列表',
+        github: '查看源码',
+        liveDemo: '在线 Demo',
+        typeProject: '项目',
+        typeNote: '随笔'
       },
       project: {
         viewDetails: '查看详情',
@@ -65,7 +72,7 @@ const resources = {
     translation: {
       nav: {
         about: 'about',
-        projects: 'projects',
+        articles: 'articles',
         contact: 'contact',
         credits: 'credits'
       },
@@ -76,9 +83,16 @@ const resources = {
       },
       section: {
         about: 'About',
-        projects: 'Projects',
+        articles: 'Articles',
         contact: 'Contact',
         credits: 'Credits'
+      },
+      article: {
+        backToArticles: '← Back to all articles',
+        github: 'View on GitHub',
+        liveDemo: 'Live Demo',
+        typeProject: 'Project',
+        typeNote: 'Note'
       },
       project: {
         viewDetails: 'View Details',

@@ -19,6 +19,43 @@ import * as THREE from 'three';
 import cardGLB from './card.glb';
 import lanyard from './lanyard.png';
 import cohenCard from './cohen-card.svg';
+/**
+ * Random anime-image APIs rotated onto the card surface.
+ * Each one must send `access-control-allow-origin: *` on the FINAL image response,
+ * otherwise the texture can't be read cross-origin. t.alcy.cc redirects to a CDN that
+ * omits the header, so it's excluded here (kept only the two that pass).
+ */
+const CARD_IMAGES = [
+  'https://moe.jitsu.top/api', // Jitsu · 二次元
+  'https://www.loliapi.com/acg/pe/' // LoliAPI · 竖屏
+];
+
+/**
+ * Load a cross-origin image as a THREE texture with `crossOrigin=anonymous` and
+ * `referrerPolicy=no-referrer`. The no-referrer policy is important: some image CDNs
+ * behave differently when they see a Referer, so sending none gives the best chance
+ * of a CORS-clean image. Resolves `null` on network failure.
+ */
+const loadCardImage = (url: string): Promise<THREE.Texture | null> =>
+  new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.referrerPolicy = 'no-referrer';
+    img.onload = () => {
+      const tex = new THREE.Texture(img);
+      tex.flipY = false;
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.wrapS = tex.wrapT = THREE.ClampToEdgeWrapping;
+      tex.generateMipmaps = false;
+      tex.minFilter = THREE.LinearFilter;
+      tex.magFilter = THREE.LinearFilter;
+      tex.anisotropy = 16;
+      tex.needsUpdate = true;
+      resolve(tex);
+    };
+    img.onerror = () => resolve(null);
+    img.src = url;
+  });
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
@@ -135,6 +172,33 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
   const { nodes, materials } = useGLTF(cardGLB) as any;
   const bandTexture = useTexture(lanyard);
   const cardTexture = useTexture(cohenCard);
+  // Rotate the card texture through the random-image APIs every 12s.
+  // On success we swap only `cardTexture.image` (reusing the same Texture object the
+  // material references, so the scene keeps its configured sampling settings) and mark
+  // `needsUpdate`; on failure we keep whatever is currently on the card.
+  const nextCardImg = useRef(0);
+  useEffect(() => {
+    let cancelled = false;
+    const loadNext = async () => {
+      const idx = nextCardImg.current % CARD_IMAGES.length;
+      nextCardImg.current += 1;
+      const tex = await loadCardImage(`${CARD_IMAGES[idx]}?t=${Date.now()}`);
+      if (cancelled || !tex) return; // keep the current texture on failure
+      try {
+        cardTexture.image = tex.image;
+        cardTexture.needsUpdate = true;
+      } catch {
+        // CORS-tainted image: keep the previous texture
+      }
+    };
+    const first = window.setTimeout(loadNext, 2500);
+    const timer = window.setInterval(loadNext, 12000);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(first);
+      window.clearInterval(timer);
+    };
+  }, [cardTexture]);
   const [curve] = useState(
     () =>
       new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()])

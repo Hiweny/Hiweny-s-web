@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import TrueFocus from '../reactbits/TextAnimations/TrueFocus/TrueFocus';
 import { about } from '../../content/about';
-import type { Locale } from '../../content/projects';
+import type { Locale } from '../../content/articles';
 
 // About is the visual parent of everything below the hero: the title is large enough
 // that Projects + Contact read as sub-sections of it. Keep the TrueFocus effect.
