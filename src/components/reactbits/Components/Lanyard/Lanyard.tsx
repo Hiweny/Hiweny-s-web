@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 'use client';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
 import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei';
 import {
@@ -27,14 +27,6 @@ interface LanyardProps {
   gravity?: [number, number, number];
   fov?: number;
   transparent?: boolean;
-}
-
-function CameraRig({ target }: { target: [number, number, number] }) {
-  const lookAt = useMemo(() => new THREE.Vector3(...target), [target]);
-  useFrame(({ camera }) => {
-    camera.lookAt(lookAt);
-  });
-  return null;
 }
 
 export default function Lanyard({
@@ -74,7 +66,6 @@ export default function Lanyard({
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
         <ambientLight intensity={Math.PI} />
-        <CameraRig target={[1, -2, 0]} />
         <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
           <Band isMobile={isMobile} />
         </Physics>
@@ -148,35 +139,13 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
   // corners let the scene / card structure show through, while the metal clip and
   // ring (separate meshes on top) stay fully visible.
   const cardTexture = useTexture(lanyardCard);
-  // Re-map the card mesh UV so the FULL transparent illustration shows, centred.
-  // The model ships with UVs that only map the top ~75.7% of the texture
-  // (v∈[0.002, 0.757]) — fine for the original square card art, but it would crop
-  // the tall illustration. We normalise the UVs to [0,1] and contain-fit the 2:3
-  // image inside the 0.716:1 card face (full height, centred width), so the whole
-  // subject stays visible and centred.
-  useEffect(() => {
-    const geom = nodes.card.geometry;
-    const uv = geom.getAttribute('uv') as THREE.BufferAttribute | undefined;
-    if (!uv) return;
-    const tagged = uv as THREE.BufferAttribute & { hiwenyUvRemapped?: boolean };
-    if (tagged.hiwenyUvRemapped) return;
-    const U_MIN = 0.0008288687095046043;
-    const U_MAX = 1.0;
-    const V_MIN = 0.0022159814834594727;
-    const V_MAX = 0.7572484612464905;
-    // Image aspect 1024/1536 = 2/3 ≈ 0.667; card face aspect ≈ 0.716/1 = 0.716.
-    // Image is taller-narrower → fit by height, centre on width.
-    const scaleW = 0.667 / 0.716;
-    const u0 = (1 - scaleW) / 2;
-    for (let i = 0; i < uv.count; i++) {
-      const u = (uv.getX(i) - U_MIN) / (U_MAX - U_MIN);
-      const v = (uv.getY(i) - V_MIN) / (V_MAX - V_MIN);
-      uv.setXY(i, u0 + u * scaleW, v);
-    }
-    uv.needsUpdate = true;
-    geom.computeBoundingSphere();
-    tagged.hiwenyUvRemapped = true;
-  }, [nodes]);
+  // Fit the full illustration onto the card face, centred, undistorted, WITHOUT
+  // touching the shared geometry (mutating its UVs triggers NaN in three's
+  // computeBoundingSphere). The model's UVs only sample the top ~75.7% of the
+  // texture (v∈[0.002, 0.757]), which would crop the tall PNG. Using the texture
+  // matrix: repeat.y = 1/0.757 expands v so the whole image height shows; repeat.x
+  // & offset contain-fit the 2:3 image inside the 0.716:1 card face (full height,
+  // centred width). Subject stays complete, centred, un-stretched.
   const [curve] = useState(
     () =>
       new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()])
@@ -242,6 +211,10 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
   cardTexture.minFilter = THREE.LinearFilter;
   cardTexture.magFilter = THREE.LinearFilter;
   cardTexture.anisotropy = 16;
+  // Contain-fit the illustration on the card face via the texture matrix.
+  const scaleW = 0.667 / 0.716; // image 2:3 is taller-narrower than 0.716:1 card
+  cardTexture.repeat.set(scaleW, 1 / 0.7572); // expand v, centre width
+  cardTexture.offset.set((1 - scaleW) / 2, 0);
   cardTexture.needsUpdate = true;
 
   return (
