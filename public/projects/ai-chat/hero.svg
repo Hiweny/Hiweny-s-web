@@ -1,0 +1,35 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B0916"/>
+      <stop offset="0.5" stop-color="#14102B"/>
+      <stop offset="1" stop-color="#0B0916"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.2" cy="0.1" r="0.9">
+      <stop stop-color="#22D3EE" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#22D3EE" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.85" cy="0.9" r="0.9">
+      <stop stop-color="#A78BFA" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#A78BFA" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#22D3EE"/>
+      <stop offset="1" stop-color="#A78BFA"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#FFFFFF" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="600" fill="url(#bg)"/>
+  <rect width="1200" height="600" fill="url(#grid)"/>
+  <rect width="1200" height="600" fill="url(#glowA)"/>
+  <rect width="1200" height="600" fill="url(#glowB)"/>
+  <rect x="1" y="1" width="1198" height="598" rx="28" fill="none" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="2"/>
+  <circle cx="60" cy="60" r="3" fill="#22D3EE" opacity="0.9"/>
+  <circle cx="1140" cy="540" r="3" fill="#A78BFA" opacity="0.9"/>
+  <text x="64" y="120" font-family="'JetBrains Mono', 'PingFang SC', 'Microsoft YaHei', monospace" font-size="20" font-weight="700" letter-spacing="6" fill="#22D3EE" opacity="0.85">HIWENY · PROJECT</text>
+  <text x="60" y="340" font-family="'JetBrains Mono', 'PingFang SC', 'Microsoft YaHei', monospace" font-size="88" font-weight="800" fill="url(#title)">AI Chat</text>
+  <text x="62" y="408" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="34" font-weight="400" fill="#C7C9D9">简洁优雅的纯前端 AI 智能对话应用</text>
+  <text x="62" y="500" font-family="'JetBrains Mono', monospace" font-size="18" letter-spacing="3" fill="#8B8FA3">GITHUB.COM/HIWENY/ai-chat  →</text>
+</svg>

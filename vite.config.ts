@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: '/',
+  base: '/Hiweny-s-web/',
   plugins: [react()],
   assetsInclude: ['**/*.glb'],
   build: {

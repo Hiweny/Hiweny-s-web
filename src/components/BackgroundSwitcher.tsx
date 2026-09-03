@@ -26,7 +26,7 @@ const ENTRIES: BgEntry[] = [
   { id: 'beams', weight: 'heavy', render: () => <Beams beamWidth={2} beamHeight={20} beamNumber={10} lightColor="#A78BFA" speed={1.6} noiseIntensity={1.2} scale={0.2} rotation={45} /> }
 ];
 
-const STORAGE_KEY = 'cohen.lastBg';
+const STORAGE_KEY = 'hiweny.lastBg';
 const FADE_MS = 600;
 const LIGHT_BACKGROUNDS = new Set(['aurora', 'grainient', 'colorbends']);
 

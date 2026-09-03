@@ -1,7 +1,6 @@
 // Open-source dependencies grouped by category. Each entry is exactly what we
 // pull at runtime or build time. Order roughly matches how visible the library
 // is in the final product.
-
 export type CreditCategory =
   | 'foundations'
   | 'routing'
@@ -9,14 +8,12 @@ export type CreditCategory =
   | 'webgl'
   | 'ui'
   | 'fonts';
-
 export interface CreditEntry {
   name: string;
   role: string;
   license: string;
   url: string;
 }
-
 export const credits: Record<CreditCategory, CreditEntry[]> = {
   foundations: [
     { name: 'React', role: 'UI runtime', license: 'MIT', url: 'https://react.dev' },
@@ -55,16 +52,3 @@ export const credits: Record<CreditCategory, CreditEntry[]> = {
     { name: 'JetBrains Mono', role: 'Monospace face used site-wide and on the Lanyard card', license: 'SIL Open Font License 1.1', url: 'https://www.jetbrains.com/lp/mono/' }
   ]
 };
-
-export interface ThanksEntry {
-  key: 'louie' | 'gpt' | 'claude';
-  url?: string;
-  /** Optional accent color for visual variety. */
-  accent: string;
-}
-
-export const specialThanks: ThanksEntry[] = [
-  { key: 'louie', url: 'https://louie1.com', accent: '#C6FF3E' },
-  { key: 'gpt', url: 'https://openai.com', accent: '#22D3EE' },
-  { key: 'claude', url: 'https://www.anthropic.com/claude-code', accent: '#A78BFA' }
-];

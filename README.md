@@ -1,12 +1,14 @@
-# cohenjikan.com
+# hiweny-s-web
 
-Personal portfolio for Cohen — built with Vite + React + TypeScript + Tailwind, with [react-bits](https://github.com/DavidHDev/react-bits) for the high-end visual effects (Aurora / Silk / Prism backgrounds, Magic Bento, Lanyard, Staggered Menu, etc.).
+雨檐（Hiweny）的个人网站 —— 基于 Vite + React + TypeScript + Tailwind 构建，使用 [react-bits](https://github.com/DavidHDev/react-bits) 的高端视觉动效（Aurora / Silk / Prism 背景、Lanyard 3D 吊牌、Staggered Menu 等）。
 
-Live at <https://cohenjikan.com>.
+在线访问：<https://hiweny.github.io/Hiweny-s-web/>
+
+> 本项目 fork 自 cohenjikan.com，已将其中的个人内容全部替换为雨檐（Hiweny）自己的项目与文章。
 
 ---
 
-## Development
+## 开发
 
 ```bash
 npm install
@@ -15,103 +17,40 @@ npm run build    # outputs dist/
 npm run preview  # serve dist/ locally
 ```
 
-> Node 20+ recommended. The build pulls in three.js / OGL / GSAP / framer-motion — first install takes a minute or two.
+> Node 20+ 推荐。构建会引入 three.js / OGL / GSAP / framer-motion，首次安装需要一两分钟。
 
 ---
 
-## How to change things
+## 如何修改内容
 
-### Add or edit a project
+### 新增 / 修改一个项目
 
-1. Drop screenshots into `public/projects/<slug>/`. Convention:
-   - `hero.png` — main hero image used on the project card and detail-page hero
-   - `feature-1.jpg`, `feature-2.jpg`, `feature-3.jpg` — one per feature row
-   - Missing files automatically render a "Screenshot coming soon" placeholder, so partial coverage is fine.
-2. Open [`src/content/projects.ts`](src/content/projects.ts) and add a new entry to the `projects` array. Each entry follows `ProjectDetail` and supports `zh` / `en` for tagline / description / features.
-3. The project will appear on the home page Bento grid and gain a route at `/projects/<slug>` automatically.
+1. 把截图放进 `public/projects/<slug>/`：
+   - `hero.svg` / `hero.png` — 项目卡片与详情页顶部的主视觉
+   - `feature-1.svg` ... `feature-N.svg` — 特性区图片（缺失时自动显示"截图待补充"占位）
+2. 打开 [`src/content/projects.ts`](src/content/projects.ts)，在 `projects` 数组新增一个条目。每个条目包含 `zh` / `en` 的 tagline、description，以及一段 **Markdown 文章**（`article` 字段），详情页会用 react-markdown 渲染这段文章。
 
-### Edit the About copy
+### 编辑个人简介
 
-Just edit the `zh` and `en` strings in [`src/content/about.ts`](src/content/about.ts).
+直接改 [`src/content/about.ts`](src/content/about.ts) 里的 `zh` / `en` 字符串。
 
-### Edit any UI string
+### 编辑任意 UI 文案
 
-All copy lives in [`src/i18n/index.ts`](src/i18n/index.ts) under the `zh` / `en` resource objects.
+所有文案在 [`src/i18n/index.ts`](src/i18n/index.ts) 的 `zh` / `en` 资源对象里。
 
-### Add or remove a background
+### 切换主题
 
-Backgrounds are listed in [`src/components/BackgroundSwitcher.tsx`](src/components/BackgroundSwitcher.tsx) inside the `ENTRIES` array. Each entry declares a `weight` of `light` or `heavy` — heavy backgrounds only enter the random pool on desktops with `navigator.hardwareConcurrency >= 4`.
-
-To add one:
-```tsx
-const NewBg = lazy(() => import('./reactbits/Backgrounds/SomeBg/SomeBg'));
-// ...
-{ id: 'somebg', weight: 'heavy', render: () => <NewBg ... /> }
-```
-
-To remove one, just delete its entry.
-
-### Switch the color theme
-
-Two dark themes are defined in [`src/styles/globals.css`](src/styles/globals.css) as CSS variables:
-
-- **Theme A — Violet → Cyan** (default, applied to `:root`)
-- **Theme B — Magenta → Lime** (set `<html data-theme="magenta-lime">`)
-
-To make Theme B the default, swap the CSS variables under `:root` with the ones under `[data-theme='magenta-lime']`, or add `data-theme="magenta-lime"` to `<html>` in `index.html`.
-
-### Update fonts
-
-`public/fonts/` holds the two woff2 files. `src/styles/globals.css` declares the `@font-face` rules — replace files there and update the CSS to match.
+两个深色主题定义在 [`src/styles/globals.css`](src/styles/globals.css) 的 CSS 变量中（默认 Violet → Cyan；另有 Magenta → Lime）。
 
 ---
 
-## Project layout
+## 部署（GitHub Pages）
 
-```
-.
-├── _legacy/                 # old static HTML kept for reference (gitignored)
-├── public/
-│   ├── CNAME                # custom-domain marker for GitHub Pages
-│   ├── 404.html             # SPA-routing shim
-│   ├── fonts/
-│   └── projects/<slug>/     # per-project screenshots
-├── src/
-│   ├── App.tsx              # router + layout shell
-│   ├── main.tsx             # entry
-│   ├── i18n/                # react-i18next setup
-│   ├── content/             # about + project data (zh / en)
-│   ├── pages/               # HomePage, ProjectDetailPage
-│   ├── components/
-│   │   ├── BackgroundSwitcher.tsx
-│   │   ├── layout/          # SiteNav (Staggered Menu), SiteDock, Footer
-│   │   ├── sections/        # Hero, About, Projects, Social, Contact
-│   │   └── reactbits/       # copied react-bits components (ts-tailwind variant)
-│   └── styles/
-└── .github/workflows/deploy.yml
-```
+仓库通过 `.github/workflows/deploy.yml` 自动部署到 GitHub Pages：任何 push 到 `main` 都会构建并把 `dist/` 发布到 `github-pages` 环境。
 
----
+一次性设置：
 
-## Deployment
+1. **Settings → Pages → Build and deployment**，把 **Source** 设为 `GitHub Actions`。
+2. 站点将托管在 `https://hiweny.github.io/Hiweny-s-web/`（仓库名决定子路径）。
 
-The repository deploys to GitHub Pages via the workflow at `.github/workflows/deploy.yml`. Any push to `main` triggers a build and publishes `dist/` to the `github-pages` environment.
-
-One-time GitHub setup:
-
-1. In **Settings → Pages → Build and deployment**, set **Source** to `GitHub Actions`.
-2. In **Settings → Pages → Custom domain**, enter `cohenjikan.com`. The `public/CNAME` file is already in place so the build will preserve it.
-3. Configure your DNS:
-   - Apex (`cohenjikan.com`) → `A` records pointing at `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - `www` (optional) → `CNAME` to `<your-github-username>.github.io`
-
-Routes such as `/projects/sync-station` are handled via the SPA fallback in `public/404.html` plus the redirect shim in `index.html`.
-
----
-
-## Notes
-
-- `_legacy/` is gitignored. The original static HTML (`_legacy/index.html`) and the originating screenshots live there for reference only; nothing references them at build time.
-- Lanyard on the Contact section uses the upstream react-bits GLB geometry with a local `cohen-card.svg` texture applied in the React material layer, so the card face can be edited without re-baking the GLB in Blender.
-- `prefers-reduced-motion: reduce` disables the background transition, the Lanyard 3D scene, and most decorative animations.
-- Mobile (< 768px): the heavy backgrounds (Prism / Silk / Iridescence / Beams) are excluded from the random pool, the Bento collapses to one column, and Lanyard is hidden.
+SPA 深链（如 `/projects/qqbot`）通过 `public/404.html` 的 404 重定向 + `index.html` 内的 shim 处理。

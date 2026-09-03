@@ -1,0 +1,18 @@
+<svg width="900" height="506" viewBox="0 0 900 506" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="b2" x1="0" y1="0" x2="900" y2="506" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B0916"/>
+      <stop offset="1" stop-color="#14102B"/>
+    </linearGradient>
+    <radialGradient id="g2" cx="0.15" cy="0.15" r="1">
+      <stop stop-color="#10B981" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#10B981" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="506" fill="url(#b2)"/>
+  <rect width="900" height="506" fill="url(#g2)"/>
+  <rect x="1" y="1" width="898" height="504" rx="24" fill="none" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="2"/>
+  <text x="48" y="70" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="700" letter-spacing="5" fill="#10B981" opacity="0.9">FEATURE 02</text>
+  <text x="46" y="280" font-family="'JetBrains Mono', 'PingFang SC', 'Microsoft YaHei', monospace" font-size="52" font-weight="800" fill="#F8FAFC">预览与检索</text>
+  <text x="48" y="360" font-family="'JetBrains Mono', 'PingFang SC', 'Microsoft YaHei', monospace" font-size="18" letter-spacing="3" fill="#8B8FA3">HIWENY · collection</text>
+</svg>

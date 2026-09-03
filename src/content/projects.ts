@@ -1,355 +1,485 @@
 export type Locale = 'zh' | 'en';
-
 export interface Localized {
   zh: string;
   en: string;
 }
-
 export interface ProjectFeature {
   title: Localized;
   description: Localized;
-  /** Path under /public, e.g. /projects/sync-station/feature-1.jpg. Falls back to placeholder when missing. */
+  /** Path under /public, e.g. /projects/qqbot/feature-1.svg. Falls back to placeholder when missing. */
   image: string;
 }
-
-/** A single source repo. Projects that bundle more than one repo (e.g. the game
- *  trainers) use `repos` instead of `githubUrl` to render one link button each. */
+/** A single source repo. */
 export interface RepoLink {
   label: Localized;
   url: string;
 }
-
 export interface ProjectDetail {
   slug: string;
   name: string;
   tagline: Localized;
   description: Localized;
   tags: string[];
-  /** Single-repo projects set this; multi-repo projects use `repos` instead. */
   githubUrl?: string;
-  /** Multiple source repos, each rendered as its own link button on the detail page. */
   repos?: RepoLink[];
   liveUrl?: string;
   heroImage: string;
   features: ProjectFeature[];
   techStack: string[];
+  /** Markdown article body, rendered on the project detail page. */
+  article: Localized;
 }
+
+/**
+ * Resolve a project asset under the deployment base path so it works both in
+ * local dev (base "/") and on GitHub Pages (base "/Hiweny-s-web/").
+ */
+export const projectAsset = (path: string): string =>
+  import.meta.env.BASE_URL + path.replace(/^\//, '');
 
 export const projects: ProjectDetail[] = [
   {
-    slug: 'poetry-cloud',
-    name: '诗云 · Poetry Cloud',
+    slug: 'qqbot',
+    name: 'QQBot AI',
     tagline: {
-      zh: '一张可飞行的三维诗歌星图:每位诗人是一团真实星,星团之间的虚空是一切可能的近体诗。点一下,就从噪声里算出一首诗。',
-      en: 'A roamable 3D star map of poetry — each poet a cluster of real stars, the void between them every possible regulated-verse poem. Click, and one is computed out of the noise.'
+      zh: '纯前端、零服务器的 QQ AI 机器人。在浏览器里直接运行，连接 QQ 开放平台 WebSocket，支持群聊、私聊与频道消息。',
+      en: 'A pure-frontend, zero-server QQ AI bot. Runs right in the browser, talks to QQ Open Platform over WebSocket, and handles groups, private chats and channels.'
     },
     description: {
-      zh: '诗云(Poetry Cloud)是一张可在其中飞行的三维星图:每位历史诗人是一团他真实写过的诗组成的星,星团之间的虚空则是「一切可能的近体诗」。诗不被储存——给一个编号,就能用「编号↔诗」的双射当场算出第几首诗,反之亦然;地址长达 82–229 位,几乎和诗本身一样长(目录即图书馆)。收录 32,657 位诗人 / 933,857 首真实诗作,先秦到当代 15 个朝代同心壳,并叠加现代新诗。全程纯静态,所有索引运算与渲染都在浏览器里完成,永不加后端。灵感来自刘慈欣《诗云》与博尔赫斯《巴别图书馆》。',
-      en: 'Poetry Cloud is a 3D star map you fly through: each historical poet is a cluster of stars they actually wrote, and the void between clusters is the space of every possible regulated-verse poem. Poems are never stored — an index↔poem bijection computes the N-th poem on the spot (and back), with an 82–229-digit address nearly as long as the poem itself (the catalog is the library). It indexes 32,657 real poets / 933,857 real poems across 15 dynastic shells from pre-Qin to today, plus a layer of modern free verse. Fully static — all the index math and rendering run client-side, with no backend ever. Inspired by Liu Cixin’s “Poetry Cloud” and Borges’ “Library of Babel”.'
+      zh: 'QQBot AI 是一个完全跑在浏览器里的 QQ 机器人：没有后端、没有服务器，一个 `index.html` 就能开机即用。它通过 QQ 开放平台的 WebSocket 收消息，再调用任意 OpenAI 兼容的 AI 接口生成回复。',
+      en: 'QQBot AI is a QQ bot that runs entirely in the browser — no backend, no server, a single `index.html` and it is live. It receives messages through QQ Open Platform’s WebSocket and replies via any OpenAI-compatible AI endpoint.'
     },
-    tags: ['TypeScript', 'three.js', 'WebGL', 'Generative'],
-    liveUrl: 'https://shiyun.cohenjikan.com',
-    heroImage: '/projects/poetry-cloud/hero.jpg',
+    tags: ['HTML', 'WebSocket', 'AI', 'OpenAI'],
+    githubUrl: 'https://github.com/Hiweny/QQbot',
+    liveUrl: 'https://hiweny.github.io/QQbot/',
+    heroImage: '/projects/qqbot/hero.svg',
     features: [
       {
-        title: { zh: '飞行星图 · 诗人即星团', en: 'A star map you fly' },
+        title: { zh: '浏览器直跑 · 零服务器', en: 'Runs in the browser' },
         description: {
-          zh: '先秦到当代 15 个朝代同心壳,每位诗人是一团他真实写过的诗;可自由飞行、按朝代筛选,而星团之间的虚空,就是一切可能的近体诗。',
-          en: 'Fifteen concentric dynastic shells from pre-Qin to today — each poet a cluster of poems they truly wrote. Fly freely and filter by dynasty; the void between clusters is every possible poem.'
+          zh: '核心页面是单文件 `index.html`，配置与会话数据保存在浏览器本地，不需要为机器人单独部署任何后端。',
+          en: 'The core is a single `index.html`; config and conversations stay in the browser, so there is no backend to deploy.'
         },
-        image: '/projects/poetry-cloud/feature-1.jpg'
+        image: '/projects/qqbot/feature-1.svg'
       },
       {
-        title: { zh: '点击虚空 · 从噪声里算出一首诗', en: 'Click the void, compute a poem' },
+        title: { zh: '多渠道 · 多模型', en: 'Multi-channel, multi-model' },
         description: {
-          zh: '点一下虚空,就用「编号↔诗」双射从噪声里 unrank 出一首诗,并显示它在全集目录里那个 82–229 位的完整编号——地址几乎和诗本身一样长。',
-          en: 'Click empty space and a poem is unranked out of the noise via the index↔poem bijection, shown with its full 82–229-digit catalog address — nearly as long as the poem itself.'
+          zh: '支持 QQ 群 @、C2C 私聊和频道消息；接入任意 OpenAI 兼容 API，可自由配置 Base URL、Key 与模型。',
+          en: 'Supports group mentions, C2C private chats and channel messages; plugs into any OpenAI-compatible API with configurable base URL, key and model.'
         },
-        image: '/projects/poetry-cloud/feature-2.jpg'
+        image: '/projects/qqbot/feature-2.svg'
       },
       {
-        title: { zh: '赠诗网络 · 4,849 条赠答弧线', en: 'Dedication network' },
+        title: { zh: '记忆 · 搜索 · APK', en: 'Memory, search & APK' },
         description: {
-          zh: '解析诗题(寄 / 赠 / 和 / 次韵)与约 250 条字号别名,连出 4,849 条诗人之间的赠答弧线,束状汇向银心;选中一位诗人,即勾出他往来的自我网络。',
-          en: 'Parsing poem titles (寄/赠/和/次韵) and ~250 courtesy-name aliases into 4,849 poet-to-poet dedication arcs, bundled toward the galactic core; select a poet to draw their ego-network.'
+          zh: '带长期记忆、摘要归档与 Tavily 联网搜索；另有 Android WebView 版和后台保活能力的 APK 发行包。',
+          en: 'Comes with long-term memory, summary archives and Tavily web search; an Android WebView APK with background keep-alive is also released.'
         },
-        image: '/projects/poetry-cloud/feature-3.jpg'
-      },
-      {
-        title: { zh: '逐句搜索 · 编号反查', en: 'Search any line, reverse a number' },
-        description: {
-          zh: '输入任意一句(不限首句)即可定位它属于哪位诗人的哪首诗;也能把一串长编号 unrank 回它的诗,核验它是否对应一首真实存在的作品——目录↔诗的闭环。',
-          en: 'Type any line (not just openings) to find whose poem it belongs to; or unrank a long address back into its poem and verify whether it maps to a real work — the catalog↔poem loop, closed.'
-        },
-        image: '/projects/poetry-cloud/feature-4.jpg'
+        image: '/projects/qqbot/feature-3.svg'
       }
     ],
-    techStack: ['TypeScript', 'three.js', 'React Three Fiber', 'BigInt', 'Vite']
+    techStack: ['HTML / CSS / JS', 'WebSocket', 'OpenAI 兼容 API', 'LocalStorage', 'Android WebView'],
+    article: {
+      zh: `## 这是什么
+
+**QQBot AI** 是一个纯前端、零服务器的 QQ AI 机器人。它把「QQ 机器人」这件事整个搬进了浏览器：
+
+- 不需要自己搭服务器，也不需要买 VPS；
+- 打开页面、填好配置就能用；
+- 配置、会话和记忆都保存在浏览器本地。
+
+## 为什么做它
+
+想让 QQ 机器人变得「开箱即用」。传统的 QQ 机器人往往要部署进程、维护长连接，门槛不低。这个项目把一切收敛到一个静态页面里，让任何人打开就能把一个 AI 助手接入自己的 QQ。
+
+## 核心能力
+
+- **浏览器直跑**：核心页面为单文件 \`index.html\`，配置与数据本地保存
+- **多渠道接入**：QQ 群 @、C2C 私聊、频道消息
+- **模型自由**：支持任意 OpenAI 兼容接口，可自填 Base URL / API Key / 模型名
+- **消息体验**：消息分条、连续消息合并
+- **记忆系统**：长期记忆、摘要归档与记忆管理
+- **联网搜索**：集成 Tavily，让机器人能查最新信息
+- **移动端**：提供带后台保活能力的 Android APK
+
+## 快速开始
+
+1. 打开[在线页面](https://hiweny.github.io/QQbot/)；
+2. 在 QQ 开放平台创建机器人，准备好 AppID / AppSecret；
+3. 在设置里填好 QQ 与 AI 服务配置；
+4. 启动机器人，在测试群或私聊里使用。
+
+## 技术栈
+
+纯原生 HTML / CSS / JavaScript，WebSocket 直连 QQ 开放平台，AI 侧走 OpenAI 兼容协议。无框架、无构建步骤，单文件即可部署到任意静态托管。
+
+## 说明
+
+本项目仅供学习交流，请遵守 QQ 开放平台及相关服务的使用规范。
+
+## 项目地址
+
+- GitHub 仓库：<https://github.com/Hiweny/QQbot>
+- 在线体验：<https://hiweny.github.io/QQbot/>
+`,
+      en: `## What it is
+
+**QQBot AI** is a pure-frontend, zero-server QQ AI bot. It moves the whole “QQ bot” experience into the browser:
+
+- no server to run, no VPS to buy;
+- open the page, fill in the config, and it just works;
+- config, conversations and memory all live in the browser.
+
+## Why I built it
+
+I wanted a QQ bot that is truly “open and use”. Traditional bots need a process, a long-lived connection and a fair amount of setup. This project folds all of that into a single static page, so anyone can plug an AI assistant into their QQ in minutes.
+
+## Highlights
+
+- **Browser-first**: core page is a single \`index.html\`; everything is stored locally
+- **Multi-channel**: group mentions, C2C private chats, channel messages
+- **Model-agnostic**: any OpenAI-compatible endpoint — set your own base URL, key and model
+- **Better messages**: split / merge long messages for cleaner replies
+- **Memory**: long-term memory, summary archives and memory management
+- **Web search**: Tavily integration for up-to-date answers
+- **Mobile**: an Android APK with background keep-alive
+
+## Quick start
+
+1. Open the [live page](https://hiweny.github.io/QQbot/);
+2. Create a bot on QQ Open Platform and prepare AppID / AppSecret;
+3. Fill in QQ and AI service configs in the settings;
+4. Start the bot and try it in a test group or private chat.
+
+## Stack
+
+Vanilla HTML / CSS / JavaScript, WebSocket to QQ Open Platform, OpenAI-compatible protocol on the AI side. No framework, no build step — one file, deployable to any static host.
+
+> For learning and communication only — please follow QQ Open Platform and service usage policies.
+
+## Links
+
+- GitHub repository: <https://github.com/Hiweny/QQbot>
+- Live demo: <https://hiweny.github.io/QQbot/>
+`
+    }
   },
   {
-    slug: 'music-master',
-    name: 'MusicMaster',
+    slug: 'collection',
+    name: 'Collection · 雪线之上',
     tagline: {
-      zh: '完全本地的一体化音乐处理:拆声、记谱、简谱⇄五线谱互译、修音换音色。',
-      en: 'A fully-local all-in-one music workstation — stem separation, transcription, notation translation, pitch & timbre reshaping.'
+      zh: '一个纯静态的个人媒体收藏夹：把公开分享的图片 / 视频链接整理、预览、检索，全部数据保存在本地。',
+      en: 'A pure-static personal media collection: organize, preview and search publicly shared image / video links — all data stays local.'
     },
     description: {
-      zh: '声谱坊(MusicMaster)是一个纯本地运行的一体化音乐处理工具,整合多个一线开源模型,在一个网页界面里搞定四件事:人声/伴奏分离、清唱自动记谱(带逐音可信度)、简谱与五线谱无损双向互译,以及把跑调清唱修成「在调 + 干净 + 仍是你本人音色」。全程本地,无需上传。',
-      en: 'MusicMaster (声谱坊) is a fully-local, all-in-one music workstation that stitches together several state-of-the-art open-source models behind one browser UI: vocal/accompaniment separation, audio-to-score transcription with per-note confidence, lossless two-way numbered ⇄ staff notation translation, and reshaping off-key singing into something in-tune and clean that still sounds like you. Everything runs on-device — nothing is uploaded.'
+      zh: '雪线之上（Collection）是一个纯静态的个人媒体收藏工具，用来整理公开分享的图片 / 视频链接。粘贴链接、本地保存、图片视频预览、搜索与类型筛选，一套流程都在浏览器里完成。',
+      en: 'Collection (雪线之上) is a pure-static tool for organizing publicly shared image / video links. Paste a link, save locally, preview, search and filter — all within the browser.'
     },
-    tags: ['Python', 'Audio AI', 'Local-First', 'Open Source'],
-    githubUrl: 'https://github.com/Cohenjikan/MusicMaster',
-    heroImage: '/projects/music-master/hero.png',
+    tags: ['HTML', '收藏', '本地存储'],
+    githubUrl: 'https://github.com/Hiweny/collection',
+    liveUrl: 'https://hiweny.github.io/collection/',
+    heroImage: '/projects/collection/hero.svg',
     features: [
       {
-        title: { zh: '拆声 · 人声伴奏分离', en: 'Stem separation' },
+        title: { zh: '粘贴即收藏', en: 'Paste to save' },
         description: {
-          zh: '三段级联(BS-RoFormer → Karaoke RoFormer → UVR):整首歌拆成人声 / 伴奏,再去和声、降噪,得到干净的纯主唱。',
-          en: 'A three-stage cascade (BS-RoFormer → Karaoke RoFormer → UVR) splits a track into vocals / accompaniment, strips backing harmonies, and denoises down to a clean lead vocal.'
+          zh: '粘贴抖音、小红书等公开分享链接尝试解析，也可以直接收藏图片 URL。',
+          en: 'Paste a Douyin / Xiaohongshu share link to try parsing it, or just save a direct image URL.'
         },
-        image: '/projects/music-master/feature-1.jpg'
+        image: '/projects/collection/feature-1.svg'
       },
       {
-        title: { zh: '记谱 · 哼唱转乐谱', en: 'Audio transcription' },
+        title: { zh: '预览与检索', en: 'Preview & search' },
         description: {
-          zh: '清唱或哼唱直接转成五线谱 + 简谱,并对每个音给出可信度,不确定的地方自动标注请你复核,纯 CPU 即可运行。',
-          en: 'Turns humming or singing straight into staff + numbered notation with a per-note confidence score, flagging the uncertain spots for review — runs on CPU alone.'
+          zh: '图片与视频内联预览，支持搜索与类型筛选；收藏数据保存在浏览器本地，可 JSON 导入导出。',
+          en: 'Inline image / video previews with search and type filters; data is saved in the browser and can be imported / exported as JSON.'
         },
-        image: '/projects/music-master/feature-2.jpg'
-      },
-      {
-        title: { zh: '互译 · 简谱⇄五线谱', en: 'Notation translation' },
-        description: {
-          zh: '简谱 .jianpu 与五线谱 MusicXML / MIDI / ABC 之间双向无损互译;简谱出图经 LilyPond,五线谱经 Verovio。',
-          en: 'Lossless two-way conversion between numbered .jianpu and staff MusicXML / MIDI / ABC — numbered scores render via LilyPond, staff via Verovio.'
-        },
-        image: '/projects/music-master/feature-3.jpg'
-      },
-      {
-        title: { zh: '重塑 · 修音换音色', en: 'Pitch & timbre reshape' },
-        description: {
-          zh: '两段式处理:先修音准、再换音色,把跑调清唱变成在调、干净、却仍保留你本人音色的演唱。',
-          en: 'A two-pass pipeline — correct the pitch, then reshape the timbre — turning an off-key take into something in-tune and clean that still carries your own voice.'
-        },
-        image: '/projects/music-master/feature-4.jpg'
+        image: '/projects/collection/feature-2.svg'
       }
     ],
-    techStack: ['Python', 'FastAPI', 'PyTorch', 'CREPE', 'Verovio', 'LilyPond']
+    techStack: ['HTML / CSS / JS', 'LocalStorage', 'JSON 导入导出'],
+    article: {
+      zh: `## 这是什么
+
+**Collection（雪线之上）** 是一个纯静态的个人媒体收藏夹，用来整理公开分享的图片 / 视频链接。
+
+灵感来自一个朴素的需求：平时刷到的公开分享链接、喜欢的图片 URL，散落在各处很难找回。这个工具把它们统一收进一个本地小仓库，随时可以翻看。
+
+## 核心能力
+
+- **粘贴即收藏**：粘贴抖音、小红书等公开分享链接并尝试解析；也支持直接收藏图片 URL
+- **内联预览**：图片与视频直接在页面里预览
+- **搜索与筛选**：按关键词搜索、按类型过滤
+- **本地保存**：收藏数据保存在浏览器本地，不依赖任何云端数据库
+- **导入导出**：JSON 一键备份 / 迁移
+
+## 隐私与边界
+
+- 数据默认只存在你自己的浏览器里，本项目不提供云端数据库；
+- 链接解析依赖第三方公开接口，其稳定性取决于第三方服务当前状态；
+- 仅用于收藏公开、本人拥有或已获授权的内容，不绕过登录、付费、DRM 或私密权限。
+
+## 技术栈
+
+单文件前端页面，核心逻辑集中在 \`index.html\`，无构建步骤、无后端，可直接部署到 GitHub Pages 等静态托管。
+
+## 项目地址
+
+- GitHub 仓库：<https://github.com/Hiweny/collection>
+- 在线体验：<https://hiweny.github.io/collection/>
+`,
+      en: `## What it is
+
+**Collection (雪线之上)** is a pure-static personal media collection tool for organizing publicly shared image / video links.
+
+It started from a simple need: public share links and image URLs I came across were scattered everywhere and hard to find later. This tool gathers them into a small local archive you can always flip through.
+
+## Highlights
+
+- **Paste to save**: paste a Douyin / Xiaohongshu share link to try parsing it, or save a direct image URL
+- **Inline previews**: images and videos preview right in the page
+- **Search & filter**: keyword search and type filtering
+- **Local storage**: everything is saved in the browser — no cloud database
+- **Import / export**: one-click JSON backup / migration
+
+## Privacy & boundaries
+
+- Data stays in your browser by default; this project has no cloud database
+- Link parsing relies on third-party public APIs whose stability is up to those services
+- For public, owned or authorized content only — never bypasses logins, paywalls, DRM or private permissions
+
+## Stack
+
+A single-file frontend, logic concentrated in \`index.html\`. No build step, no backend — deploy to any static host.
+
+## Links
+
+- GitHub repository: <https://github.com/Hiweny/collection>
+- Live demo: <https://hiweny.github.io/collection/>
+`
+    }
   },
   {
-    slug: 'primer-score',
-    name: 'PrimerScore Web',
+    slug: 'ai-chat',
+    name: 'AI Chat',
     tagline: {
-      zh: '把 PCR 引物设计搬上 Web,BLAST + 表达感知评分。',
-      en: 'A PCR primer designer on the web, with BLAST and expression-aware scoring.'
+      zh: '简洁优雅的纯前端 AI 智能对话应用：多轮对话、流式响应、Markdown 渲染、代码高亮，一个页面搞定。',
+      en: 'A clean, elegant pure-frontend AI chat app: multi-turn conversations, streaming responses, Markdown rendering and code highlighting in one page.'
     },
     description: {
-      zh: 'PCR 引物设计工具的网页化实现,支持 BLAST 校验与表达感知评分,提升了生信工具的交互体验与可访问性。',
-      en: 'A web-based implementation of a PCR primer design tool with BLAST validation and expression-aware scoring, improving accessibility and UX for bioinformatics workflows.'
+      zh: 'AI Chat 是一个纯前端的 AI 智能对话应用。不依赖任何前端框架，原生 HTML / CSS / JavaScript 实现，支持多轮对话、流式响应、主题切换，以及 Markdown 渲染与代码高亮。',
+      en: 'AI Chat is a pure-frontend AI chat application. Built with vanilla HTML / CSS / JavaScript — no framework — it supports multi-turn chat, streaming, theme switching, Markdown rendering and code highlighting.'
     },
-    tags: ['Python', 'Bioinformatics', 'BLAST', 'Web'],
-    githubUrl: 'https://github.com/TH-Chen-CN/PrimerScore',
-    heroImage: '/projects/primer-score/hero.png',
+    tags: ['JavaScript', 'AI', 'Streaming', 'Markdown'],
+    githubUrl: 'https://github.com/Hiweny/ai-chat',
+    liveUrl: 'https://hiweny.github.io/ai-chat/',
+    heroImage: '/projects/ai-chat/hero.svg',
     features: [
       {
-        title: { zh: 'BLAST 校验', en: 'BLAST validation' },
+        title: { zh: '流式对话', en: 'Streaming chat' },
         description: {
-          zh: '集成 BLAST 流程,自动剔除非特异性引物候选,降低实验返工率。',
-          en: 'Integrated BLAST pipeline filters non-specific candidates so you spend less bench time on rework.'
+          zh: '多轮对话 + 流式响应，回复逐字呈现；OpenAI 兼容 API 可自由配置。',
+          en: 'Multi-turn conversations with streaming responses that appear word by word; any OpenAI-compatible API is configurable.'
         },
-        image: '/projects/primer-score/feature-1.jpg'
+        image: '/projects/ai-chat/feature-1.svg'
       },
       {
-        title: { zh: '表达感知评分', en: 'Expression-aware scoring' },
+        title: { zh: 'Markdown 与代码', en: 'Markdown & code' },
         description: {
-          zh: '结合表达量数据为候选引物打分,优先推荐高灵敏度组合。',
-          en: 'Scores candidates against expression data, surfacing the most sensitive primer pairs first.'
+          zh: '回复内容支持 Markdown 渲染与代码高亮，适合写代码、做笔记、看文档。',
+          en: 'Replies render Markdown and highlight code — great for coding, note-taking and reading docs.'
         },
-        image: '/projects/primer-score/feature-2.jpg'
+        image: '/projects/ai-chat/feature-2.svg'
       },
       {
-        title: { zh: '浏览器直运行', en: 'Runs in the browser' },
+        title: { zh: '主题切换 · 本地保存', en: 'Themes & local storage' },
         description: {
-          zh: '无需本地 Python 环境,生信工具的可访问性大幅提升。',
-          en: 'No local Python install required — drastically lowers the barrier to bioinformatics tooling.'
+          zh: '支持主题切换；配置与会话保存在浏览器本地，无需独立后端即可静态部署。',
+          en: 'Theme switching included; config and sessions persist in the browser, deployable as a static site with no backend.'
         },
-        image: '/projects/primer-score/feature-3.jpg'
+        image: '/projects/ai-chat/feature-3.svg'
       }
     ],
-    techStack: ['Python', 'BLAST', 'JavaScript', 'Web']
+    techStack: ['HTML / CSS / JS', 'OpenAI 兼容 API', 'SSE 流式', 'Markdown 渲染', '代码高亮'],
+    article: {
+      zh: `## 这是什么
+
+**AI Chat** 是一个简洁的纯前端 AI 智能对话应用。相比各种重框架的聊天客户端，它刻意保持轻量：
+
+- 原生 HTML / CSS / JavaScript，没有引入 React 等前端框架；
+- 一个页面承载完整对话体验；
+- 无需独立后端，可作为静态网页直接部署。
+
+## 核心能力
+
+- **多轮对话**：上下文连贯的连续对话
+- **流式响应**：SSE 流式输出，回复逐字呈现
+- **OpenAI 兼容 API**：自填 Base URL、API Key、模型即可接入
+- **Markdown 渲染**：回复中的标题、列表、引用、表格等正常显示
+- **代码高亮**：代码块带语法着色，方便阅读与复制
+- **主题切换**：亮 / 暗主题随意切换
+- **本地保存**：配置与会话保存在浏览器本地
+
+## 使用方式
+
+下载或克隆仓库后，直接用浏览器打开 \`index.html\` 即可；如果浏览器对本地文件的模块或资源加载有限制，用任意静态 HTTP 服务启动目录即可。
+
+在设置中配置 AI 服务的 Base URL、API Key 和模型，然后开始对话。
+
+## 部署
+
+这是一个静态前端项目，可直接部署到 GitHub Pages、Vercel、Netlify 等静态托管服务。
+
+## 技术栈
+
+原生 HTML / CSS / JavaScript，SSE 流式接入 OpenAI 兼容接口，Markdown 渲染与代码高亮均为前端实现。
+
+## 项目地址
+
+- GitHub 仓库：<https://github.com/Hiweny/ai-chat>
+- 在线体验：<https://hiweny.github.io/ai-chat/>
+`,
+      en: `## What it is
+
+**AI Chat** is a minimal pure-frontend AI chat application. Compared to heavy chat clients, it deliberately stays light:
+
+- vanilla HTML / CSS / JavaScript — no React or other frameworks;
+- the whole chat experience lives in one page;
+- no backend required; deploy it as a static site.
+
+## Highlights
+
+- **Multi-turn chat**: coherent, context-aware conversations
+- **Streaming responses**: SSE streaming, replies appear word by word
+- **OpenAI-compatible API**: bring your own base URL, key and model
+- **Markdown rendering**: headings, lists, quotes, tables and more render properly
+- **Code highlighting**: syntax-colored code blocks for easy reading and copying
+- **Themes**: switch between light and dark
+- **Local storage**: config and sessions persist in the browser
+
+## Usage
+
+Clone or download the repo and open \`index.html\` directly. If the browser restricts local file modules, serve the folder with any static HTTP server.
+
+Configure your AI service base URL, API key and model in the settings, then start chatting.
+
+## Deploy
+
+It is a static frontend project — deploy to GitHub Pages, Vercel, Netlify or any static host.
+
+## Stack
+
+Vanilla HTML / CSS / JavaScript, SSE to OpenAI-compatible endpoints, client-side Markdown rendering and code highlighting.
+
+## Links
+
+- GitHub repository: <https://github.com/Hiweny/ai-chat>
+- Live demo: <https://hiweny.github.io/ai-chat/>
+`
+    }
   },
   {
-    slug: 'rhythm-game-trainers',
-    name: 'Rhythm Game Trainers',
+    slug: 'moe-gallery',
+    name: 'MoeGallery',
     tagline: {
-      zh: '两款节奏游戏的内置图形修改器:Autoplay 满分自动演奏、变速、放宽判定、关卡直达。',
-      en: 'In-game GUI trainers for two rhythm games — frame-perfect autoplay, speed control, relaxed judgment, level jump.'
+      zh: '随机图 API 全屏浏览器：毛玻璃 UI、响应式设计，并整理了大量随机图接口的实测记录。',
+      en: 'A fullscreen random-image API gallery with a glassmorphism UI and responsive design — plus a hands-on report of many random-image APIs.'
     },
     description: {
-      zh: '为《节奏医生》与《冰与火之舞》两款节奏游戏制作的内置图形修改器,均基于 BepInEx 注入,游戏内按 Insert 呼出菜单。提供引擎级 Autoplay 满分自动演奏、游戏变速(含音高)、放宽判定窗口、无敌、关卡直达与一键解锁,以及开发者 / 调试工具。仅供单机自娱与录制,完全免费开源、严禁倒卖。',
-      en: 'In-game GUI trainers for the rhythm games Rhythm Doctor and A Dance of Fire and Ice. Both inject via BepInEx and pop up with the Insert key, offering engine-level frame-perfect autoplay, game-speed control (pitch included), a widened judgment window, no-fail invincibility, instant level jump / unlocks, and developer-debug tools. Built for solo play and recording — free, open-source, and never for resale.'
+      zh: 'MoeGallery 是一个用于整理、测试和调用随机图片 API 的前端项目。它把几十个随机图接口收进一个全屏浏览器里，带毛玻璃 UI、移动端手势优化、收藏与本地持久化，并附一份独立的 API 文档与实测报告。',
+      en: 'MoeGallery is a frontend project for organizing, testing and calling random-image APIs. It bundles dozens of such APIs into a fullscreen browser with a glassmorphism UI, mobile gestures, favorites with local persistence, plus a standalone API docs page and benchmark report.'
     },
-    tags: ['C#', 'BepInEx', 'Game Modding', 'Open Source'],
-    repos: [
-      { label: { zh: '节奏医生', en: 'Rhythm Doctor' }, url: 'https://github.com/Cohenjikan/RhythmDoctorTrainer' },
-      { label: { zh: '冰与火之舞', en: 'A Dance of Fire and Ice' }, url: 'https://github.com/Cohenjikan/ADOFAITrainer' }
-    ],
-    heroImage: '/projects/rhythm-game-trainers/hero.png',
+    tags: ['HTML', 'Random API', 'IndexedDB', 'PWA'],
+    githubUrl: 'https://github.com/Hiweny/moe-gallery',
+    liveUrl: 'https://hiweny.github.io/moe-gallery/',
+    heroImage: '/projects/moe-gallery/hero.svg',
     features: [
       {
-        title: { zh: 'Autoplay 满分自动演奏', en: 'Frame-perfect autoplay' },
+        title: { zh: '全屏浏览 · 毛玻璃 UI', en: 'Fullscreen glass UI' },
         description: {
-          zh: '引擎按谱面帧级满分自动演奏,画面与真人手打无异且无水印,保留「完美 / JCI」结算标记 —— 配合隐藏 HUD 即可录制完美通关。',
-          en: 'The engine plays every chart frame-perfectly and watermark-free, indistinguishable from a human run and keeping the Perfect / JCI result marks — pair it with hidden HUD to record flawless clears.'
+          zh: '全屏浏览随机图，毛玻璃风格界面，横竖屏自适应与移动端滑动手势优化。',
+          en: 'Fullscreen random-image browsing with a glassmorphism UI, portrait / landscape adaption and mobile swipe gestures.'
         },
-        image: '/projects/rhythm-game-trainers/feature-1.jpg'
+        image: '/projects/moe-gallery/feature-1.svg'
       },
       {
-        title: { zh: '变速 · 放宽判定 · 无敌', en: 'Speed, judgment & no-fail' },
+        title: { zh: '接口实测与文档', en: 'API benchmarks & docs' },
         description: {
-          zh: '0.1×–3× 变速(含音高)用于慢放练习或加速,放宽命中窗口让手打也能全 Perfect,外加无敌不会失败 / 被打断。',
-          en: '0.1×–3× speed (pitch included) for slow practice or speed-ups, a widened hit window so manual play hits all-Perfect, plus no-fail invincibility that never breaks your run.'
+          zh: '独立 API 文档页面与实测报告，记录返回方式、速度、分辨率与稳定性；Service Worker 代理与接口回退提升可用性。',
+          en: 'A standalone API docs page and benchmark report covering response shape, speed, resolution and stability; Service Worker proxy with fallback improves reliability.'
         },
-        image: '/projects/rhythm-game-trainers/feature-2.jpg'
+        image: '/projects/moe-gallery/feature-2.svg'
       },
       {
-        title: { zh: '关卡直达 · 解锁 · 开发者工具', en: 'Level jump, unlocks & dev tools' },
+        title: { zh: '收藏与持久化', en: 'Favorites & persistence' },
         description: {
-          zh: '列出全部关卡一点直达、一键解锁所有关卡与成就,另含开发者 / 调试模式、跳过过场、显示 FPS、固定星球颜色等录制友好选项。',
-          en: 'List every level and jump straight in, unlock all levels and achievements at once, plus developer / debug modes, cutscene skipping, FPS display and recording-friendly toggles like fixed planet colors.'
+          zh: '真实图片 URL 收藏，IndexedDB 本地持久化，敏感词自动脱敏。',
+          en: 'Save real image URLs, persist with IndexedDB, and auto-redact sensitive words.'
         },
-        image: '/projects/rhythm-game-trainers/feature-3.jpg'
+        image: '/projects/moe-gallery/feature-3.svg'
       }
     ],
-    techStack: ['C#', 'BepInEx', 'Harmony', 'Unity', 'IMGUI']
-  },
-  {
-    slug: 'claude-usage-monitor',
-    name: 'Claude Usage Monitor',
-    tagline: {
-      zh: '常驻任务栏的 Claude Code 用量监视器,5h/周配额 + 分项目花费一眼看清。',
-      en: 'A taskbar-resident Claude Code usage monitor — 5h/weekly quota and per-project cost at a glance.'
-    },
-    description: {
-      zh: '面向 Claude Code Pro / Max 订阅者的轻量 Windows 桌面监视器:实时显示 5 小时与每周配额、按项目折算的等效 API 花费,以及一条常驻任务栏的迷你条。复用 Claude Code 自带的 OAuth 令牌,无需单独登录。',
-      en: 'A lightweight Windows desktop monitor for Claude Code Pro / Max subscribers: real-time 5-hour & weekly quota, per-project equivalent-API cost, and an always-visible mini taskbar strip. Piggybacks on Claude Code’s own OAuth token — no separate login.'
-    },
-    tags: ['Python', 'Windows', 'Desktop', 'Open Source'],
-    githubUrl: 'https://github.com/Cohenjikan/ClaudeUsageMoniter',
-    heroImage: '/projects/claude-usage-monitor/hero.png',
-    features: [
-      {
-        title: { zh: '配额实时监控', en: 'Live quota tracking' },
-        description: {
-          zh: '5 小时滚动窗口与每周配额实时刷新,跨越 75% / 90% / 95% 阈值时弹出 Windows 通知。',
-          en: 'Real-time 5-hour rolling window and weekly quota, with Windows notifications when usage crosses 75% / 90% / 95%.'
-        },
-        image: '/projects/claude-usage-monitor/feature-1.jpg'
-      },
-      {
-        title: { zh: '分项目花费', en: 'Per-project cost' },
-        description: {
-          zh: '解析本地 JSONL 记录,把每个项目的用量折算成等效 API 花费,会话 / 今日 / 本月一并汇总。',
-          en: 'Parses local JSONL logs to compute each project’s equivalent-API cost, rolled up by session / today / month.'
-        },
-        image: '/projects/claude-usage-monitor/feature-2.jpg'
-      },
-      {
-        title: { zh: '任务栏迷你条', en: 'Taskbar mini strip' },
-        description: {
-          zh: '无边框迷你条常驻任务栏、可拖动并记忆位置,另有浮动详情窗与系统托盘两种模式。',
-          en: 'A borderless, drag-to-reposition strip lives in the taskbar (position remembered), plus a floating detail window and system-tray mode.'
-        },
-        image: '/projects/claude-usage-monitor/feature-3.jpg'
-      }
-    ],
-    techStack: ['Python', 'tkinter', 'pystray', 'Pillow', 'winotify']
-  },
-  {
-    slug: 'tiny-voice-room',
-    name: 'Tiny Voice Room',
-    tagline: {
-      zh: '免注册的轻量 WebRTC 语音房,一个链接就能开黑。',
-      en: 'A link-first WebRTC voice room — no signup, share and talk.'
-    },
-    description: {
-      zh: '免注册、链接即用的轻量 WebRTC 语音房间。一个分享链接、无需账号、房间 24 小时自动过期,后台标签页也能稳定运行,专为开黑场景设计。',
-      en: 'A no-account, link-first WebRTC voice room. One shareable link, no signup, rooms auto-expire in 24 hours, runs reliably in background tabs — built for casual gaming squads.'
-    },
-    tags: ['WebRTC', 'TypeScript', 'Docker', 'Self-Hosted'],
-    githubUrl: 'https://github.com/Cohenjikan/tiny-voice-room',
-    heroImage: '/projects/tiny-voice-room/hero.png',
-    features: [
-      {
-        title: { zh: '一键链接', en: 'Link-first onboarding' },
-        description: {
-          zh: '打开链接即入房,完全无账号、无 App、无邀请流程。',
-          en: 'Open the link and you are in — no account, no app, no invite flow.'
-        },
-        image: '/projects/tiny-voice-room/feature-1.jpg'
-      },
-      {
-        title: { zh: '后台稳定运行', en: 'Background-stable' },
-        description: {
-          zh: '针对浏览器节流的连接保活策略,即使切到游戏窗口也不会掉线。',
-          en: 'Custom keep-alive defeats browser throttling so the connection survives when you tab over to a game.'
-        },
-        image: '/projects/tiny-voice-room/feature-2.jpg'
-      },
-      {
-        title: { zh: '24h 自动过期', en: 'Auto-expiring rooms' },
-        description: {
-          zh: '房间 24 小时后自动销毁,无残留状态,可 Docker 自托管。',
-          en: 'Rooms self-destruct after 24h — no lingering state, ships as a single self-hostable Docker image.'
-        },
-        image: '/projects/tiny-voice-room/feature-3.jpg'
-      }
-    ],
-    techStack: ['WebRTC', 'TypeScript', 'Node.js', 'Docker']
-  },
-  {
-    slug: 'sync-station',
-    name: 'Sync Station',
-    tagline: {
-      zh: '私有跨设备同步,WebSocket 实时,双视图 + PIN 锁。',
-      en: 'A private cross-device sync hub — WebSocket real-time, dual-view, PIN-locked.'
-    },
-    description: {
-      zh: '私有跨设备同步工具,支持文本与文件的实时共享,基于 WebSocket 实现即时更新,提供双视图布局与 PIN 锁保护。',
-      en: 'A private cross-device sync tool that supports real-time text and file sharing via WebSocket, featuring a dual-view layout and PIN lock protection.'
-    },
-    tags: ['JavaScript', 'WebSocket', 'HTML', 'Open Source'],
-    githubUrl: 'https://github.com/Cohenjikan/sync-station',
-    heroImage: '/projects/sync-station/hero.png',
-    features: [
-      {
-        title: { zh: '实时同步', en: 'Real-time sync' },
-        description: {
-          zh: 'WebSocket 长连接,文本与文件改动在毫秒级广播到所有已连接设备。',
-          en: 'WebSocket-based broadcast pushes text and file changes to every connected device in milliseconds.'
-        },
-        image: '/projects/sync-station/feature-1.jpg'
-      },
-      {
-        title: { zh: '双视图布局', en: 'Dual-view layout' },
-        description: {
-          zh: '文本编辑区与文件列表并排排布,可同时进行,无需切换上下文。',
-          en: 'Side-by-side text editor and file list — work on both without switching context.'
-        },
-        image: '/projects/sync-station/feature-2.jpg'
-      },
-      {
-        title: { zh: 'PIN 锁保护', en: 'PIN lock protection' },
-        description: {
-          zh: '通过短 PIN 加密会话,防止陌生人误连;离开页面后自动锁定。',
-          en: 'Lightweight PIN gating prevents strangers from joining and auto-locks when you leave.'
-        },
-        image: '/projects/sync-station/feature-3.jpg'
-      }
-    ],
-    techStack: ['JavaScript', 'WebSocket', 'Node.js', 'HTML', 'CSS']
+    techStack: ['HTML / CSS / JS', 'Service Worker', 'IndexedDB', '随机图 API'],
+    article: {
+      zh: `## 这是什么
+
+**MoeGallery** 是一个随机图 API 的「整理 + 测试 + 调用」前端项目。它把数十个二次元 / 真人写真随机图接口统一收进一个全屏浏览器里，同时作为一份持续更新的接口实测资料库。
+
+## 核心能力
+
+- **全屏浏览**：随机图一键全屏切换，毛玻璃 UI
+- **接口整理**：二次元、动漫角色、真人写真、JK 等随机图接口分类整理
+- **实测记录**：API 返回方式、速度、分辨率与稳定性实测档案
+- **API 文档**：独立文档页面，说明每个接口的用法
+- **可靠性**：Service Worker 代理与接口回退，坏了也能切
+- **收藏**：真实图片 URL 收藏，IndexedDB 本地持久化
+- **移动端**：横竖屏适配、滑动方向提示与手势优化
+- **内容安全**：敏感词脱敏
+
+## 技术栈
+
+原生 HTML / CSS / JavaScript，Service Worker 做代理与回退，IndexedDB 本地持久化。无需后端数据库，可直接部署到 GitHub Pages 等静态托管。
+
+## 说明
+
+项目中的随机图片接口来自第三方服务，其稳定性、速度、防盗链策略和内容可能随时变化；README 中的测试结果仅代表测试时的情况，不保证长期有效。
+
+## 项目地址
+
+- GitHub 仓库：<https://github.com/Hiweny/moe-gallery>
+- 在线体验：<https://hiweny.github.io/moe-gallery/>
+`,
+      en: `## What it is
+
+**MoeGallery** is a frontend project for organizing, testing and calling random-image APIs. It bundles dozens of anime / portrait random-image APIs into a single fullscreen browser, and doubles as a continuously-updated benchmark database for those APIs.
+
+## Highlights
+
+- **Fullscreen browsing**: one-key fullscreen switching, glassmorphism UI
+- **API organization**: categorized random-image APIs — anime, characters, portraits, JK and more
+- **Benchmarks**: measured response shape, speed, resolution and stability
+- **API docs**: a standalone page documenting how to use each endpoint
+- **Reliability**: Service Worker proxy with fallback — when one API dies, it switches
+- **Favorites**: save real image URLs, persisted with IndexedDB
+- **Mobile**: portrait / landscape adaption, swipe direction hints and gesture optimization
+- **Safety**: sensitive-word redaction
+
+## Stack
+
+Vanilla HTML / CSS / JavaScript, Service Worker for proxy & fallback, IndexedDB for persistence. No backend database — deploy to any static host.
+
+> The random-image APIs come from third parties; their stability, speed, anti-hotlink policies and content can change at any time. Benchmark results reflect only the time of testing.
+
+## Links
+
+- GitHub repository: <https://github.com/Hiweny/moe-gallery>
+- Live demo: <https://hiweny.github.io/moe-gallery/>
+`
+    }
   }
 ];
+
 
 export const getProjectBySlug = (slug: string): ProjectDetail | undefined =>
   projects.find((p) => p.slug === slug);

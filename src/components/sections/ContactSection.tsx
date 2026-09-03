@@ -21,14 +21,6 @@ const GitHubIcon = () => (
   </svg>
 );
 
-const InstagramIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-  </svg>
-);
-
 const LinkIcon = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
@@ -49,37 +41,28 @@ interface ContactMethod {
 const CONTACT_METHODS: ContactMethod[] = [
   {
     label: 'Email',
-    value: 'q63725959@gmail.com',
-    href: 'mailto:q63725959@gmail.com',
+    value: 'Hiweny@users.noreply.github.com',
+    href: 'mailto:Hiweny@users.noreply.github.com',
     icon: <EmailIcon />,
     gradient: 'linear-gradient(135deg, #A78BFA 0%, #7C3AED 100%)',
     glow: 'rgba(167, 139, 250, 0.35)'
   },
   {
     label: 'GitHub',
-    value: '@Cohenjikan',
-    href: 'https://github.com/Cohenjikan',
+    value: '@Hiweny',
+    href: 'https://github.com/Hiweny',
     icon: <GitHubIcon />,
     gradient: 'linear-gradient(135deg, #22D3EE 0%, #0EA5E9 100%)',
     glow: 'rgba(34, 211, 238, 0.35)',
     external: true
   },
   {
-    label: 'Instagram',
-    value: '@mk.cohen.3',
-    href: 'https://www.instagram.com/mk.cohen.3/',
-    icon: <InstagramIcon />,
+    label: 'Projects',
+    value: 'github.com/Hiweny?tab=repositories',
+    href: 'https://github.com/Hiweny?tab=repositories',
+    icon: <LinkIcon />,
     gradient: 'linear-gradient(135deg, #FF50AA 0%, #F97316 100%)',
     glow: 'rgba(255, 80, 170, 0.35)',
-    external: true
-  },
-  {
-    label: "Louie's Homepage",
-    value: 'louie1.com',
-    href: 'https://louie1.com',
-    icon: <LinkIcon />,
-    gradient: 'linear-gradient(135deg, #C6FF3E 0%, #10B981 100%)',
-    glow: 'rgba(198, 255, 62, 0.35)',
     external: true
   }
 ];
@@ -121,7 +104,7 @@ export const ContactSection = () => {
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">{t('contact.title')}</p>
             <h3 className="mt-3 bg-accent-gradient bg-clip-text text-5xl font-bold leading-[1.05] tracking-tight text-transparent md:text-6xl">
-              Cohen
+              雨檐
             </h3>
             <p className="mt-2 text-sm uppercase tracking-[0.2em] text-muted">{t('contact.role')}</p>
           </div>
@@ -136,7 +119,7 @@ export const ContactSection = () => {
 
           <div>
             <a
-              href="mailto:q63725959@gmail.com"
+              href="mailto:Hiweny@users.noreply.github.com"
               className="group inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-bold text-text backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-accent/60 hover:bg-white/10"
             >
               <EmailIcon />

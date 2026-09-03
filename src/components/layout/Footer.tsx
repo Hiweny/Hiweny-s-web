@@ -5,7 +5,7 @@ export const Footer = () => {
   const year = new Date().getFullYear();
   return (
     <footer className="relative z-10 border-t border-border/40 bg-black/40 px-6 py-10 text-center text-sm text-muted backdrop-blur">
-      © {year} Cohen — {t('footer')}
+      © {year} 雨檐 (Hiweny) — {t('footer')}
     </footer>
   );
 };

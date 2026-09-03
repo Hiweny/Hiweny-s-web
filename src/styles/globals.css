@@ -93,10 +93,9 @@ body {
   max-width: 100%;
 }
 
-/* Hero "Hi, I'm Cohen" splits each glyph into an inline-block flex item via BlurText.
+/* Hero title splits each glyph into an inline-block flex item via BlurText.
    Without this, narrow viewports (Android browsers especially) can wrap a single
-   glyph (e.g. the C in Cohen) onto its own line. Force one line and let the clamp()
-   font-size shrink to fit. */
+   glyph onto its own line. Force one line and let the clamp() font-size shrink. */
 .hero-title-blur {
   flex-wrap: nowrap !important;
   white-space: nowrap;
@@ -158,8 +157,10 @@ body {
    secondary / utility route (license + thanks) and shouldn't visually compete
    with the primary section anchors (Home / Projects / Contact). We dial it down
    in size and tint it with the accent so it reads as an auxiliary action.
+   The href carries the deployment base prefix, so match on the tail.
+   in size and tint it with the accent so it reads as an auxiliary action.
    The :is(.sm-scope) prefix matches the menu's own inline-style specificity. */
-:is(.sm-scope) .sm-panel-item[href='/credits'] {
+:is(.sm-scope) .sm-panel-item[href$='/credits'] {
   font-size: 2.25rem !important;
   letter-spacing: 0 !important;
   font-weight: 600 !important;
@@ -169,19 +170,113 @@ body {
   transition: opacity 0.2s ease, color 0.2s ease;
 }
 
-:is(.sm-scope) .sm-panel-item[href='/credits']:hover,
-:is(.sm-scope) .sm-panel-item[href='/credits']:focus-visible {
+:is(.sm-scope) .sm-panel-item[href$='/credits']:hover,
+:is(.sm-scope) .sm-panel-item[href$='/credits']:focus-visible {
   opacity: 1;
   color: #A78BFA !important;
 }
 
-:is(.sm-scope) .sm-panel-item[href='/credits'] .sm-panel-itemLabel {
+:is(.sm-scope) .sm-panel-item[href$='/credits'] .sm-panel-itemLabel {
   color: inherit;
 }
 
-:is(.sm-scope) .sm-panel-item[href='/credits']::before {
+:is(.sm-scope) .sm-panel-item[href$='/credits']::before {
   content: '↗ ';
   font-size: 0.7em;
   margin-right: 0.3em;
   opacity: 0.7;
+}
+
+/* Markdown article body on the project detail page */
+.markdown-body {
+  color: rgb(var(--color-text) / 0.88);
+  line-height: 1.85;
+  font-size: 15px;
+}
+.markdown-body > *:first-child {
+  margin-top: 0;
+}
+.markdown-body h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 2.4em 0 0.8em;
+  padding-bottom: 0.4em;
+  border-bottom: 1px solid rgb(var(--color-border) / 0.6);
+  background: linear-gradient(90deg, rgb(var(--color-accent)), rgb(var(--color-accent-2)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.markdown-body h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 2em 0 0.7em;
+  color: rgb(var(--color-text));
+}
+.markdown-body p {
+  margin: 1em 0;
+}
+.markdown-body ul,
+.markdown-body ol {
+  margin: 1em 0;
+  padding-left: 1.4em;
+}
+.markdown-body ul {
+  list-style: disc;
+}
+.markdown-body ol {
+  list-style: decimal;
+}
+.markdown-body li {
+  margin: 0.45em 0;
+}
+.markdown-body a {
+  color: rgb(var(--color-accent));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+.markdown-body a:hover {
+  color: rgb(var(--color-accent-2));
+}
+.markdown-body strong {
+  font-weight: 700;
+  color: rgb(var(--color-text));
+}
+.markdown-body code {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.85em;
+  background: rgb(var(--color-surface) / 0.9);
+  border: 1px solid rgb(var(--color-border) / 0.6);
+  border-radius: 5px;
+  padding: 0.12em 0.4em;
+  color: rgb(var(--color-accent-2));
+}
+.markdown-body pre {
+  margin: 1.2em 0;
+  padding: 1em 1.2em;
+  overflow-x: auto;
+  border-radius: 12px;
+  background: rgb(4 4 12 / 0.85);
+  border: 1px solid rgb(var(--color-border) / 0.6);
+}
+.markdown-body pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: rgb(var(--color-text) / 0.9);
+  font-size: 0.85rem;
+}
+.markdown-body blockquote {
+  margin: 1.4em 0;
+  padding: 0.3em 1.2em;
+  border-left: 3px solid rgb(var(--color-accent));
+  color: rgb(var(--color-muted));
+  background: rgb(var(--color-surface) / 0.5);
+  border-radius: 0 10px 10px 0;
+}
+.markdown-body hr {
+  margin: 2.5em 0;
+  border: 0;
+  border-top: 1px solid rgb(var(--color-border) / 0.6);
 }

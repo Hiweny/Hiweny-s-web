@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <title>Cohen — Portfolio</title>
+    <title>雨檐 · Hiweny — Portfolio</title>
     <script>
       // GitHub Pages SPA shim — redirect deep links back into the SPA.
       // See https://github.com/rafgraph/spa-github-pages
       var l = window.location;
-      var pathSegmentsToKeep = 0;
+      // project site at https://<user>.github.io/<repo>/ — keep the repo segment
+      var pathSegmentsToKeep = 1;
       l.replace(
         l.protocol +
           '//' +

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SpotlightCard from '../reactbits/Components/SpotlightCard/SpotlightCard';
-import { projects, type Locale } from '../../content/projects';
+import { projects, projectAsset, type Locale } from '../../content/projects';
 import { SectionLabel } from './SectionLabel';
 
 // Projects renders as a child of About above. The heading is intentionally smaller
@@ -30,7 +30,7 @@ export const ProjectsSection = () => {
             >
               <div className="relative aspect-[2/1] w-full overflow-hidden rounded-t-3xl bg-gradient-to-br from-black/60 to-surface/60">
                 <img
-                  src={p.heroImage}
+                  src={projectAsset(p.heroImage)}
                   alt={`${p.name} preview`}
                   loading="lazy"
                   className="absolute inset-0 h-full w-full object-contain p-3 opacity-90 transition-all duration-500 group-hover:scale-[1.02] group-hover:opacity-100"
