@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo, type CSSProperties, type ReactNode } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState, type CSSProperties, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SectionLabel } from './SectionLabel';
 
@@ -7,6 +7,21 @@ const Lanyard = lazy(() => import('../reactbits/Components/Lanyard/Lanyard'));
 
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+/** Random anime-image APIs used to fill the contact cards, rotated in turn. */
+const RANDOM_IMG_APIS = [
+  'https://t.alcy.cc/ycy/', // 次元 · 横屏
+  'https://moe.jitsu.top/api', // Jitsu · 二次元
+  'https://www.loliapi.com/acg/pe/' // LoliAPI · 竖屏
+];
+/** Bump a timestamp every `interval` ms so the <img> src re-fetches (rotation). */
+const useRotationTick = (interval = 12000): number => {
+  const [tick, setTick] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setTick(Date.now()), interval);
+    return () => clearInterval(id);
+  }, [interval]);
+  return tick;
+};
 
 const EmailIcon = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -21,10 +36,11 @@ const GitHubIcon = () => (
   </svg>
 );
 
-const LinkIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+const QQIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="0.6" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 2.2c-4.2 0-7.2 2.9-7.2 6.5 0 1.9.8 3.5 1.7 4.9-.1.5-.4 1.3-.5 1.8 0 0-.4.7 1.1 1.2 0 0-.2 1.3.4 1.9 0 0 1.6-.7 2.4-1.2.8.2 1.7.3 2.3.3s1.5-.1 2.3-.3c.8.5 2.4 1.2 2.4 1.2.6-.6.4-1.9.4-1.9 1.5-.5 1.1-1.2 1.1-1.2-.1-.5-.4-1.3-.5-1.8.9-1.4 1.7-3 1.7-4.9 0-3.6-3-6.5-7.2-6.5z" />
+    <circle cx="9" cy="8.6" r="0.6" fill="#fff" stroke="none" />
+    <circle cx="15" cy="8.6" r="0.6" fill="#fff" stroke="none" />
   </svg>
 );
 
@@ -36,16 +52,19 @@ interface ContactMethod {
   gradient: string;
   glow: string;
   external?: boolean;
+  /** Image API used for this card's background (rotated among RANDOM_IMG_APIS). */
+  imgApi?: string;
 }
 
 const CONTACT_METHODS: ContactMethod[] = [
   {
     label: 'Email',
-    value: 'Hiweny@users.noreply.github.com',
-    href: 'mailto:Hiweny@users.noreply.github.com',
+    value: '3458096571@qq.com',
+    href: 'mailto:3458096571@qq.com',
     icon: <EmailIcon />,
     gradient: 'linear-gradient(135deg, #A78BFA 0%, #7C3AED 100%)',
-    glow: 'rgba(167, 139, 250, 0.35)'
+    glow: 'rgba(167, 139, 250, 0.35)',
+    imgApi: RANDOM_IMG_APIS[0]
   },
   {
     label: 'GitHub',
@@ -54,22 +73,25 @@ const CONTACT_METHODS: ContactMethod[] = [
     icon: <GitHubIcon />,
     gradient: 'linear-gradient(135deg, #22D3EE 0%, #0EA5E9 100%)',
     glow: 'rgba(34, 211, 238, 0.35)',
-    external: true
+    external: true,
+    imgApi: RANDOM_IMG_APIS[1]
   },
   {
-    label: 'Projects',
-    value: 'github.com/Hiweny?tab=repositories',
-    href: 'https://github.com/Hiweny?tab=repositories',
-    icon: <LinkIcon />,
+    label: 'QQ',
+    value: '3458096571',
+    href: 'https://wpa.qq.com/msgrd?v=3&uin=3458096571&site=qq&menu=yes',
+    icon: <QQIcon />,
     gradient: 'linear-gradient(135deg, #FF50AA 0%, #F97316 100%)',
     glow: 'rgba(255, 80, 170, 0.35)',
-    external: true
+    external: true,
+    imgApi: RANDOM_IMG_APIS[2]
   }
 ];
 
 export const ContactSection = () => {
   const { t } = useTranslation();
   const reduced = useMemo(prefersReducedMotion, []);
+  const rotationTick = useRotationTick();
 
   return (
     <section id="contact" className="mx-auto max-w-6xl px-6 py-16 md:px-12 md:py-20 scroll-mt-28">
@@ -113,13 +135,13 @@ export const ContactSection = () => {
 
           <div className="grid gap-3">
             {CONTACT_METHODS.map((method) => (
-              <ContactCard key={method.label} {...method} />
+              <ContactCard key={method.label} {...method} rotationTick={rotationTick} />
             ))}
           </div>
 
           <div>
             <a
-              href="mailto:Hiweny@users.noreply.github.com"
+              href="mailto:3458096571@qq.com"
               className="group inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-bold text-text backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-accent/60 hover:bg-white/10"
             >
               <EmailIcon />
@@ -140,8 +162,10 @@ const ContactCard = ({
   icon,
   gradient,
   glow,
-  external
-}: ContactMethod) => (
+  external,
+  imgApi,
+  rotationTick = 0
+}: ContactMethod & { rotationTick?: number }) => (
   <a
     href={href}
     target={external ? '_blank' : undefined}
@@ -149,6 +173,22 @@ const ContactCard = ({
     className="group relative overflow-hidden rounded-2xl border border-white/10 bg-surface/50 p-4 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-white/20"
     style={{ '--glow-color': glow } as CSSProperties}
   >
+    {imgApi ? (
+      <>
+        <img
+          src={`${imgApi}${imgApi.includes('?') ? '&' : '?'}t=${rotationTick || 1}`}
+          alt=""
+          aria-hidden
+          referrerPolicy="no-referrer"
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover opacity-30 transition-opacity duration-700"
+        />
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/20"
+        />
+      </>
+    ) : null}
     <span
       aria-hidden
       className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
