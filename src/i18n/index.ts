@@ -17,7 +17,7 @@ const resources = {
       },
       section: {
         about: 'About',
-        articles: '文章',
+        articles: 'Articles',
         contact: 'Contact',
         credits: 'Credits'
       },
