@@ -13,7 +13,7 @@ const resources = {
       hero: {
         greeting: 'hello, world',
         cta: 'Say Hello',
-        name: "Hi, I'm\nHiweny"
+        name: "Hi,\nI'm Hiweny"
       },
       section: {
         about: 'About',
@@ -79,7 +79,7 @@ const resources = {
       hero: {
         greeting: 'hello, world',
         cta: 'Say Hello',
-        name: "Hi, I'm\nHiweny"
+        name: "Hi,\nI'm Hiweny"
       },
       section: {
         about: 'About',
