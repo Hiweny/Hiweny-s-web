@@ -17,13 +17,18 @@ export const HeroSection = () => {
           {t('hero.greeting')}
         </p>
 
-        <BlurText
-          text={t('hero.name')}
-          delay={120}
-          animateBy="letters"
-          direction="top"
-          className="hero-title-blur bg-accent-gradient bg-clip-text text-[clamp(2.5rem,9vw,7.75rem)] font-bold leading-[0.95] tracking-normal text-transparent drop-shadow-[0_2px_28px_rgba(0,0,0,0.5)]"
-        />
+        {t('hero.name')
+          .split('\n')
+          .map((line, i) => (
+            <BlurText
+              key={i}
+              text={line}
+              delay={120 + i * 400}
+              animateBy="letters"
+              direction="top"
+              className="hero-title-blur max-w-full bg-accent-gradient bg-clip-text text-[clamp(2.6rem,12vw,7.75rem)] font-bold leading-[1.02] tracking-normal text-transparent drop-shadow-[0_2px_28px_rgba(0,0,0,0.5)]"
+            />
+          ))}
 
         <p className="mt-8 max-w-3xl text-lg font-bold leading-relaxed text-text/90 md:text-2xl drop-shadow-[0_1px_10px_rgba(0,0,0,0.55)]">
           {heroSubtitle[locale]}
