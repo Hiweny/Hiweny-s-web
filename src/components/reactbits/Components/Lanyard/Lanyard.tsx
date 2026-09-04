@@ -18,7 +18,30 @@ import * as THREE from 'three';
 // replace with your own imports, see the usage snippet for details
 import cardGLB from './card.glb';
 import lanyard from './lanyard.png';
-import lanyardCard from './lanyard-card.png';
+import cardFace1 from './lanyard-card-1.png';
+import cardFace2 from './lanyard-card-2.png';
+import cardFace3 from './lanyard-card-3.png';
+
+// Rotate the card face on every page load: cycle 1 -> 2 -> 3 -> 1 ...
+// Picked ONCE per full page load (module singleton) so Suspense re-mounts of the
+// 3D scene don't advance the counter or preload the other faces.
+const CARD_FACES = [cardFace1, cardFace2, cardFace3];
+let pickedCardFace: string | undefined;
+const getCardFace = (): string => {
+  if (pickedCardFace) return pickedCardFace;
+  let idx = 0;
+  if (typeof window !== 'undefined') {
+    try {
+      const KEY = 'lanyard-face-index';
+      idx = (Number(window.localStorage.getItem(KEY) ?? -1) + 1) % CARD_FACES.length;
+      window.localStorage.setItem(KEY, String(idx));
+    } catch {
+      idx = Math.floor(Math.random() * CARD_FACES.length);
+    }
+  }
+  pickedCardFace = CARD_FACES[idx];
+  return pickedCardFace;
+};
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
@@ -138,7 +161,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
   // `transparent` on the material keeps the illustration's alpha: the transparent
   // corners let the scene / card structure show through, while the metal clip and
   // ring (separate meshes on top) stay fully visible.
-  const cardTexture = useTexture(lanyardCard);
+  // One fixed face for this page load (rotates only on a full refresh).
+  const cardTexture = useTexture(getCardFace());
   // The 2048x1536 PNG is pre-baked exactly like the original cohen-card.svg: the
   // card FRONT samples only the left half (u[0.0008,0.4989], v[0.0042,0.7548]) and
   // the back the mirrored right half. Art is pre-stretched inside that UV region so
