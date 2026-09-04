@@ -3,8 +3,13 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkToc from 'remark-toc';
+import { visit } from 'unist-util-visit';
+import { toString as mdastToString } from 'mdast-util-to-string';
+import type { Plugin } from 'unified';
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
+import rehypeSlug from 'rehype-slug';
 import Magnet from '../components/reactbits/Animations/Magnet/Magnet';
 import StarBorder from '../components/reactbits/Animations/StarBorder/StarBorder';
 import { getArticleBySlug, resolveTitle, splitBody, type Locale } from '../content/articles';
@@ -25,6 +30,27 @@ const GithubIcon = () => (
   </svg>
 );
 
+/**
+ * remark-toc wraps its list in an extra outer `ul > li > ul` (because article
+ * bodies start at H2). Tag that generated list with `.md-toc` so CSS can drop
+ * the empty outer bullet/indent and style the table of contents in isolation.
+ */
+const TOC_HEADING = /^(table[ -]of[ -]contents|toc|contents|目录)$/i;
+const remarkTagToc: Plugin = () => (tree) => {
+  let tocHeadingSeen = false;
+  visit(tree, (node) => {
+    if (node.type === 'heading') {
+      tocHeadingSeen = TOC_HEADING.test(mdastToString(node));
+      return;
+    }
+    if (tocHeadingSeen && node.type === 'list') {
+      const data = (node.data ?? {}) as Record<string, unknown>;
+      data.hProperties = { className: 'md-toc' };
+      node.data = data;
+      tocHeadingSeen = false;
+    }
+  });
+};
 /** Fenced-code wrapper: macOS-style bar, language tag and a copy button. */
 const CodeBlock = ({ children }: { children?: ReactNode }) => {
   const preRef = useRef<HTMLPreElement>(null);
@@ -149,8 +175,15 @@ export const ArticleDetailPage = () => {
       <section className="mb-12">
         <div className="markdown-body">
           <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeRaw, rehypeHighlight]}
+            remarkPlugins={[
+              remarkGfm,
+              // mdast-util-toc wraps this source string into /^(…)$/i,
+              // so it matches 目录 / TOC / Contents / Table of Contents.
+              // maxDepth 3 keeps the TOC to H2/H3 instead of flooding it with demo H4–H6.
+              [remarkToc, { heading: 'table[ -]of[ -]contents|toc|contents|目录', maxDepth: 3 }],
+              remarkTagToc
+            ]}
+            rehypePlugins={[rehypeRaw, rehypeSlug, rehypeHighlight]}
             components={{
               a: ({ href, children, ...props }) => (
                 <a
@@ -162,8 +195,15 @@ export const ArticleDetailPage = () => {
                   {children}
                 </a>
               ),
-              img: ({ src, alt }) => (
-                <img src={typeof src === 'string' ? src : ''} alt={alt ?? ''} loading="lazy" decoding="async" />
+              img: ({ src, alt, title }) => (
+                <img
+                  src={typeof src === 'string' ? src : ''}
+                  alt={alt ?? ''}
+                  title={title}
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
+                />
               ),
               pre: ({ children }) => <CodeBlock>{children}</CodeBlock>
             }}

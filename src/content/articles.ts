@@ -83,11 +83,13 @@ export const articles: Article[] = Object.entries(modules)
 export const getArticleBySlug = (slug: string): Article | undefined =>
   articles.find((a) => a.slug === slug);
 
-/** Body is `中文 …` then an optional `<!-- EN -->` marker then `English …`. */
+/** Body is `中文 …` then an optional `<!-- EN -->` marker then `English …`.
+ *  Only a marker that occupies its OWN line separates the languages;
+ *  an inline mention (e.g. inside inline code) must not split the body. */
 export const splitBody = (body: string): { zh: string; en: string } => {
-  const parts = body.split('<!-- EN -->');
+  const parts = body.split(/^[ \t]*<!-- EN -->[ \t]*$/m);
   const zh = parts[0].trim();
-  const en = parts.length > 1 ? parts.slice(1).join('<!-- EN -->').trim() : zh;
+  const en = parts.length > 1 ? parts.slice(1).join('\n<!-- EN -->\n').trim() : zh;
   return { zh, en };
 };
 

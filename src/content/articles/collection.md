@@ -1,10 +1,10 @@
 ---
-title: "Collection：雪线之上，一个只收藏「图片 URL」的收藏夹"
-title_en: "Collection: Above the Snowline — an archive that collects image URLs, not files"
+title: "Collection：图片收藏夹"
+title_en: "Collection: Image Archive"
 date: 2026-04-24
-tags: ["收藏夹", "图片URL", "图床", "防盗链", "随机音乐"]
-excerpt: "因为爱攒美图又不想占相册内存，我做了个纯静态收藏夹：解析抖音/小红书图集、用图床转存对抗防盗链、用代理加载外网图，还配了随机音乐。"
-excerpt_en: "I love hoarding beautiful images but hate filling my gallery — so I built a pure-static archive that parses Douyin/Xiaohongshu albums, re-hosts links to beat anti-hotlinking, proxies foreign images, and plays random music."
+tags: ["收藏夹", "图床", "图片URL", "随机音乐"]
+excerpt: "一个只收藏「图片 URL」的纯静态收藏夹：解析抖音/小红书图集、图床转存对抗防盗链、代理加载外网图，还带随机音乐。"
+excerpt_en: "A pure-static archive that collects image URLs — parse Douyin/Xiaohongshu albums, re-host links to beat anti-hotlinking, proxy foreign images, with random music."
 github: https://github.com/Hiweny/collection
 live: https://hiweny.github.io/collection/
 ---

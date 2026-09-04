@@ -305,6 +305,36 @@ body {
   text-decoration: line-through; text-decoration-color: rgb(var(--color-muted) / 0.7);
 }
 
+/* ---- Table of contents (remark-toc) ---- */
+.markdown-body .md-toc {
+  margin: 1.1em 0 1.5em;
+  padding: 0.95em 1.15em;
+  border: 1px solid rgb(var(--color-border) / 0.7);
+  border-radius: 14px;
+  background: rgb(var(--color-surface) / 0.45);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+/* remark-toc emits ul.md-toc > li(empty) > ul(real TOC); flatten the empty shell */
+.markdown-body .md-toc > li { margin: 0; }
+.markdown-body .md-toc > li::before { display: none; }
+.markdown-body .md-toc > li > ul { margin: 0; padding-left: 0; }
+.markdown-body .md-toc ul { margin: 0; padding-left: 1.35em; }
+.markdown-body .md-toc li { margin: 0.32em 0; }
+.markdown-body .md-toc a {
+  color: rgb(var(--color-text));
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+.markdown-body .md-toc a:hover {
+  color: rgb(var(--color-accent));
+  border-bottom-color: rgb(var(--color-accent) / 0.6);
+}
+@media (max-width: 560px) {
+  .markdown-body .md-toc { font-size: 0.9rem; padding: 0.8em 0.9em; }
+}
+
 /* ---- Inline code ---- */
 .markdown-body :not(pre) > code {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
