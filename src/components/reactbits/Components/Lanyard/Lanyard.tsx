@@ -139,13 +139,11 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
   // corners let the scene / card structure show through, while the metal clip and
   // ring (separate meshes on top) stay fully visible.
   const cardTexture = useTexture(lanyardCard);
-  // Fit the full illustration onto the card face, centred, undistorted, WITHOUT
-  // touching the shared geometry (mutating its UVs triggers NaN in three's
-  // computeBoundingSphere). The model's UVs only sample the top ~75.7% of the
-  // texture (v∈[0.002, 0.757]), which would crop the tall PNG. Using the texture
-  // matrix: repeat.y = 1/0.757 expands v so the whole image height shows; repeat.x
-  // & offset contain-fit the 2:3 image inside the 0.716:1 card face (full height,
-  // centred width). Subject stays complete, centred, un-stretched.
+  // The 2048x1536 PNG is pre-baked exactly like the original cohen-card.svg: the
+  // card FRONT samples only the left half (u[0.0008,0.4989], v[0.0042,0.7548]) and
+  // the back the mirrored right half. Art is pre-stretched inside that UV region so
+  // that after the geometry's horizontal compression it renders at true aspect,
+  // centred and complete. No runtime UV/texture-matrix tweak is needed.
   const [curve] = useState(
     () =>
       new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()])
@@ -211,11 +209,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
   cardTexture.minFilter = THREE.LinearFilter;
   cardTexture.magFilter = THREE.LinearFilter;
   cardTexture.anisotropy = 16;
-  // The PNG is pre-cropped (lossless) to the card face aspect 0.592:1, so it
-  // fills the face directly. Raw card UVs span u[0.0008,1], v[0.0022,0.7572];
-  // normalise them to 0..1 so the whole cropped image shows, centred & undistorted.
-  cardTexture.repeat.set(1.00083, 1.3245);
-  cardTexture.offset.set(-0.00083, -0.00292);
+  // (No repeat/offset: the atlas is already laid out for the model's exact UVs.)
   cardTexture.needsUpdate = true;
 
   return (

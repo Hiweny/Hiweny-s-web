@@ -105,7 +105,7 @@ export const ContactSection = () => {
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">{t('contact.title')}</p>
             <h3 className="mt-3 bg-accent-gradient bg-clip-text text-5xl font-bold leading-[1.05] tracking-tight text-transparent md:text-6xl">
-              雨檐
+              Hiweny
             </h3>
             <p className="mt-2 text-sm uppercase tracking-[0.2em] text-muted">{t('contact.role')}</p>
           </div>

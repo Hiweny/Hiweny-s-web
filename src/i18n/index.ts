@@ -12,8 +12,8 @@ const resources = {
       },
       hero: {
         greeting: 'hello, world',
-        cta: '发送邮件联系',
-        name: "Hi, I'm 雨檐."
+        cta: 'Say Hello',
+        name: "Hi, I'm Hiweny."
       },
       section: {
         about: 'About',
@@ -40,10 +40,10 @@ const resources = {
       },
       contact: {
         title: "What's Next?",
-        desc: '虽然主要在做独立开发，但我的收件箱始终敞开。无论是合作、技术交流还是打个招呼，我都会尽量回复。',
+        desc: "Always happy to chat — whether it's a collaboration, a tech question, or just dropping by to say hi. My inbox is always open.",
         button: 'Say Hello',
-        role: '独立开发者 · 中国',
-        dragHint: '试着拖动这张卡片'
+        role: 'Hobbyist · China',
+        dragHint: 'try dragging the card'
       },
       credits: {
         title: '致谢',
@@ -65,7 +65,7 @@ const resources = {
         bg: '切换背景',
         top: '回到顶部'
       },
-      footer: '用 ♥ 与代码构建'
+      footer: 'Built with ♥ & code'
     }
   },
   en: {
@@ -106,9 +106,9 @@ const resources = {
       },
       contact: {
         title: "What's Next?",
-        desc: "While I'm mostly focused on independent development, my inbox is always open — for collaborations, tech chats, or just a hello.",
+        desc: "Always happy to chat — whether it's a collaboration, a tech question, or just dropping by to say hi. My inbox is always open.",
         button: 'Say Hello',
-        role: 'Independent Developer · China',
+        role: 'Hobbyist · China',
         dragHint: 'try dragging the card'
       },
       credits: {
