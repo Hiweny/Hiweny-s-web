@@ -1,10 +1,10 @@
 # hiweny-s-web
 
-雨檐（Hiweny）的个人网站 —— 基于 Vite + React + TypeScript + Tailwind 构建，使用 [react-bits](https://github.com/DavidHDev/react-bits) 的高端视觉动效（Aurora / Silk / Prism 背景、Lanyard 3D 吊牌、Staggered Menu 等）。
+Hiweny 的个人网站 —— 基于 Vite + React + TypeScript + Tailwind 构建，使用 [react-bits](https://github.com/DavidHDev/react-bits) 的高端视觉动效（Aurora / Silk / Prism 背景、Lanyard 3D 吊牌、Staggered Menu 等）。
 
 在线访问：<https://hiweny.github.io/Hiweny-s-web/>
 
-> 本项目 fork 自 cohenjikan.com，已将其中的个人内容全部替换为雨檐（Hiweny）自己的项目与文章。
+> 本项目 fork 自 cohenjikan.com，已将其中原作者的个人内容全部替换为 Hiweny 自己的项目与文章。
 
 ---
 
@@ -67,6 +67,8 @@ This is the English version of the article body.
 
 **注意：** `title` 和 `date` 是必填的；没有它们文章不会正常显示。正文里的图片直接写 Markdown 图片语法，支持任意公开 URL。
 
+**支持的语法：** GFM 全套（表格、任务列表、删除线、脚注、自动链接）、围栏代码块（带语法高亮与一键复制按钮，标注语言即可，如 ` ```ts `）、以及原生 HTML（如 `<details>` 折叠、`<mark>`、`<kbd>`）。可参考 `src/content/articles/测试.md` 这份全语法示例。
+
 ### 修改 / 删除一篇文章
 
 - **改**：直接编辑对应的 `.md` 文件（改标题、改日期、改正文都行），保存后提交，主页列表和详情页会自动更新。
@@ -94,7 +96,7 @@ This is the English version of the article body.
 
 ## 部署（GitHub Pages）
 
-仓库通过 `.github/workflows/deploy.yml` 部署到 GitHub Pages：push 到 `main` 会构建并把 `dist/` 发布到 `github-pages` 环境。
+仓库通过 `.github/workflows/deploy-pages.yml` 部署到 GitHub Pages：push 到 `main` 会自动构建并把 `dist/` 发布到 `github-pages` 环境（无需任何手动操作，Actions 页也可手动 Run workflow）。
 
 一次性设置：
 
