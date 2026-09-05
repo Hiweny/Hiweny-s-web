@@ -1,14 +1,14 @@
 ---
-title: "有趣的 Markdown：我的博客写作语言"
-title_en: "Fun with Markdown: My Blog Writing Language"
+title: "Markdown：我的博客写作语言"
+title_en: "Markdown: My Blog Writing Language"
 date: "2026-09-05"
 tags: ["Markdown", "写作", "AI", "博客"]
-excerpt: "从在 DeepSeek 里第一次遇见 Markdown，到拥有属于自己的博客写作规则——这篇既是入门心得，也是一份写给 AI 的代笔手册，还顺带全量展示本站支持的语法。"
-excerpt_en: "From meeting Markdown in DeepSeek to owning a personal blog writing spec — this is both a beginner's story, a ghost-writer manual for AI, and a full syntax showcase for this site."
-github: https://github.com/Hiweny
+excerpt: "我是怎么在 DeepSeek 里认识 Markdown、又为什么想拥有属于自己的一套样式；这篇文章同时也是一份 Markdown 范本，我以后让 AI 照着它替我写。"
+excerpt_en: "How I came to know Markdown in DeepSeek and why I wanted a style of my own. It doubles as a Markdown template I hand to AI to write for me."
+github: https://raw.githubusercontent.com/Hiweny/Hiweny-s-web/main/src/content/articles/markdown.md
+live: https://hiweny.github.io/Hiweny-s-web
 ---
-
-> 这篇文章有**三个身份**：它是我的 Markdown 入门心得，是给任何 AI 的一份「为我代笔」的使用手册，也是本站支持语法的全量示例。你可以把它直接丢给 AI，它就知道该怎么为我写文章。
+> 写在前面：这首先是**我的一篇文章**，记录我和 Markdown 的相遇；同时它也是一份**范本**——我懒得亲手排版，以后会把它交给 AI，让 AI 照着这里的格式、语气和语法，替我写出一篇篇属于我的 Markdown。所以你既能当文章读，也能把它当成一份「写作说明书」。
 
 ## 目录
 
@@ -16,122 +16,116 @@ github: https://github.com/Hiweny
 
 Markdown 是一种**轻量标记语言**：用最简单的纯文本符号，就能写出结构清晰、排版漂亮的文章。
 
-我第一次听到这个名字的时候，完全不知道它是什么玩意儿。什么「标记向下」之类的奇怪说法——其实 **Markdown = Mark（标记）+ down（向下）**，源自一种叫 Markup（标记语言）的写作方式，它把复杂的排版「降级」成顺手就能打的符号。等反应过来，才发现自己一直在用它。
-
-我真正认识它，是在一次和 **DeepSeek** 的对话里。
+我第一次听到这个名字时，完全不知道它是什么玩意儿。什么「标记向下」之类的奇怪说法——其实 **Markdown = Mark（标记）+ down（向下）**，名字源自 Markup（标记语言），它把复杂的排版「降级」成随手就能打的符号。等真正用起来，我才发现自己早就在和它打交道了。而我认真认识它，是在一次和 **DeepSeek** 的对话里。
 
 ## 我和 Markdown 的初遇
 
-那时候我惊讶地发现，DeepSeek 的回复里居然有**很丰富的样式**：有加粗、有列表、有代码框，整整齐齐的。我一边看，一边冒出一个个「这是什么」的疑问，就这样一步步在对话中认识了 Markdown。
+那时候我惊讶地发现，DeepSeek 的回复里居然有**很丰富的样式**：有加粗、有列表、有代码框，整整齐齐。我一边看，一边冒出一个个「这是什么」的疑问，就这样一步步在对话里认识了 Markdown。
 
 ### 一眼爱上的引用块
 
-我最先喜欢上的，是那个**引用块**的样式——一条竖线后面跟着文字，感觉很好看，也很有意思：
+我最先喜欢上的，是**引用块**——一条竖线后面跟着文字，看着特别舒服，也很有意思：
 
 > 一条竖线，一段文字，就自成一方天地。
 
-而且它还能**反复嵌套**：
+它还能**反复嵌套**，像俄罗斯套娃：
 
 > 外面的引用。
 >
 > > 里面的引用，层层递进。
 > >
-> > > 再往里一层，像俄罗斯套娃。
+> > > 再往里一层。
 
-当时我就觉得：这排版怎么这么舒服？
+当时我就觉得：这排版怎么这么好看？
 
 ### 代码块：一键复制
 
-然后是**代码块**。这个语法对我来说太方便了——写好的代码、命令、配置，一个框框装起来，还能**一键复制**：
+接着是**代码块**。这对我太实用了——代码、命令、配置往框里一装，还能**一键复制**：
 
 ```bash
 # 比如一条部署命令
 git push origin main
 ```
 
-想要什么，点一下就能拿走，省心。
+想要什么，点一下就拿走，省心。
 
 ### 分割线：恰到好处的留白
 
-还有那个**分割线**，一条线把内容隔开，文章的节奏一下就出来了：
+还有**分割线**，一条线把内容隔开，文章的节奏一下就出来了：
 
 ---
 
-上面一段内容，下面一段内容，中间一条线，阅读就有了呼吸感。
+上面一段，下面一段，中间一条线，阅读就有了呼吸感。
 
 ## 走出 DeepSeek：更多样的 Markdown
 
-后来我发现 Markdown 其实无处不在。在 **GitHub 的 README** 里，我见到了更多风格；也看了不少别人的 Markdown 博客，大家的样式五花八门，各有各的美。
+后来我发现 Markdown 其实无处不在。在 **GitHub 的 README** 里我见到了更多写法，也看了不少别人的 Markdown 博客，风格五花八门，各有各的好看。
 
-原来同一种语言，可以被渲染成完全不同的样子——**内容用 Markdown 写，样式由展示端决定**。
+我慢慢明白：同一种语言，可以被渲染成完全不同的样子——**内容用 Markdown 写，样式由展示它的那个网站决定**。
 
 ## 我也想要自己的 Markdown
 
-于是我心里萌生了一个念头：
+于是我心里冒出一个念头：
 
-> 我也想做出**属于自己的 Markdown**，拥有一套**专门的、符合自己审美的样式**，用来记录我的项目、想法和碎碎念。
+> 我也想拥有**属于自己的 Markdown**——一套贴合我审美的样式，用来记录我做的项目（比如这篇 [图片收藏夹 Collection](https://hiweny.github.io/Hiweny-s-web/articles/collection)）、我的想法和碎碎念。
 
 所以就有了**这个网站**，以及**这篇文章**。
 
-不过说实话，我根本不太会用 Markdown——虽然知道一些基础的符号，但就是不太会。主要是**懒得学**，哈哈。
+不过说实话，我并不太会写 Markdown——基础符号认得一些，真要自己排，还是不行，主要是**懒得学**，哈哈。
 
 ## 我不会写，但 AI 会
 
-但没关系，**我不会，AI 会啊**。它写 Markdown 一溜一溜的，张口就来。
+没关系，**我不会，AI 会**。它写起 Markdown 来一溜一溜的，张口就来。
 
-可惜的是，很多 AI 客户端自带的 Markdown 渲染并不是很好看。既然这样，不如**给我找一位专门的 Markdown 代笔**——它负责写，我的网站负责渲染成好看的样子。
+只是很多 AI 客户端自带的 Markdown 渲染并不好看。那我就换个思路：**让 AI 负责写，我的网站负责把它渲染成我喜欢的样子**。为了让每次找来的 AI 都能一次写对，我把「我的语气、网站支持的语法、输出格式」都写进了这篇文章——它就是我留给代笔 AI 的「样板间」。我自己也在耳濡目染里，慢慢记住了一些语法。
 
-所以就有了这篇文章：它把「我的想法、网站支持的语法、写作规则」全部写清楚，AI 一看就懂，照着写就能产出合我心意的文章。我也在耳濡目染中，慢慢学到了一些 Markdown 语法。
+## 我给代笔 AI 定的规矩
 
-## 本站的 Markdown 规则
+如果你来帮我写文章，请认真读这一节。我的目标很简单：**你读完后，直接交付一个完整、能保存成 `.md` 的 Markdown 文件**，而不是给我一堆零碎说明。这篇文章本身就是你要对标的范本。
 
-如果你是一位 AI（或者想用 AI 帮我写文章的人），请认真阅读这一节。这是为本站写文章的全部规则。
+### 一、你只需要交付一个 .md 文件
 
-### 一、文章放在哪里
-
-- 把 `.md` 文件放进仓库的 `src/content/articles/` 目录即可；
-- **文件名就是网址**：如 `markdown.md` → `/articles/markdown`，建议用英文小写，不要用中文名；
-- 文件一旦上传并推送，网站会自动构建、主页**自动按时间倒序**更新。
+你不用操心网站怎么构建、文件要放进哪个目录、怎么部署——那些是工程层面的事，我都写在项目的 [README（点这里看渲染版）](https://github.com/Hiweny/Hiweny-s-web/blob/main/README.md) 里了；如果你是 AI 需要读取纯文本，用这份 [README 原始链接](https://raw.githubusercontent.com/Hiweny/Hiweny-s-web/main/README.md)。你只要把下面要求的 Markdown 写好交给我，我来发布；网站会自动构建，并按日期把它排进主页。
 
 ### 二、元数据（Frontmatter）
 
-文章开头用 `---` 包裹的元数据，控制主页列表的展示信息：
+每个 `.md` 开头都要有一段用 `---` 包起来的元数据，它决定文章在主页列表上怎么显示：
 
 | 字段 | 必填 | 作用 |
 | :--- | :---: | :--- |
-| `title` | ✅ | 中文标题，主页列表与详情页展示 |
-| `title_en` | 推荐 | 英文标题，英文界面回退到 `title` |
-| `date` | ✅ | 格式 `YYYY-MM-DD`，**主页按此倒序排列** |
+| `title` | ✅ | 中文标题，要简短、有核心 |
+| `title_en` | 推荐 | 英文标题，缺省时回退到 `title` |
+| `date` | ✅ | 格式 `YYYY-MM-DD`，**主页按它倒序排列** |
 | `tags` | 推荐 | 标签数组，如 `["Markdown", "写作"]` |
-| `excerpt` | 推荐 | 中文一句话摘要，主页列表展示 |
+| `excerpt` | 推荐 | 中文一句话摘要，同样要精简 |
 | `excerpt_en` | 推荐 | 英文摘要，回退到 `excerpt` |
-| `github` | 可选 | 仓库地址，详情页显示「查看源码」按钮 |
-| `live` | 可选 | 在线地址，详情页显示「在线 Demo」按钮 |
+| `github` | 可选 | 详情页「查看源码」按钮的地址 |
+| `live` | 可选 | 详情页「在线 Demo」按钮的地址 |
 
-> 改元数据里的 `date`，主页的顺序也会跟着变——**日期由元数据驱动**，不需要手动维护列表。
+> 改一下元数据里的 `date`，主页顺序就会跟着变——**顺序完全由日期驱动**，不用手动维护列表。项目文章的日期我一般取对应仓库的创建时间。
 
 ### 三、双语写作
 
-- 中文正文写在前，英文正文写在 `<!-- EN -->` 之后；
-- `<!-- EN -->` 是一个特殊分隔符，左侧是中文、右侧是英文；
-- 两段都要完整、通顺，不是逐句直译，而是各自成文。
+- 中文正文写在前面，英文正文写在独占一行的 `<!-- EN -->` 之后；
+- 两段都要完整、通顺，英文版是**独立重新表达**，不是逐句机翻；
+- 如果某篇只写一种语言，不加 `<!-- EN -->` 即可；正文里若只是想提到这个标记，用行内代码 `` `<!-- EN -->` `` 写，不会被当成分隔符。
 
-### 四、给我的写作要求
+### 四、我对成稿的要求
 
-1. **以我的原话为骨架**：我提供的想法、经历、观点，是文章的主干，不要丢掉；
-2. **结合项目本身**：如果是项目文章，去读它的源码，把真实存在的功能、细节、用法写进去；
-3. **合理发散**：在我的原意基础上丰富扩展，包括我提到的知识点、技术点以及相关概念，补充背景、原理、例子；
-4. **按需使用语法**：不必为了用而用，让标题、列表、表格、引用、代码块等自然服务于内容；
-5. **逻辑完整**：组织成一篇有头有尾、读起来顺畅的文章；
-6. **给出英文版**：在 `<!-- EN -->` 后写完整的英文版本。
+1. **以我的原话为骨架**：我给的想法、经历、观点是主干，别弄丢，也别改我的立场；
+2. **结合项目本身**：写项目就去读它的源码，把真实存在的功能、细节、用法写准，不要编造；
+3. **合理发散**：在我原意上补充背景、原理、例子和我提到的技术点，让外行也能读懂；
+4. **以我的口吻、第一人称**：文章作者是我，用「我」来叙述，你是幕后代笔，不要跳出来用旁观者语气；
+5. **按需使用语法**：标题、列表、表格、引用、代码块自然服务于内容，不为炫技堆砌；
+6. **结构完整**：有开头、有收尾，读起来是一篇顺畅的文章，最后附上独立成文的英文版。
 
 ## 语法全量展示
 
-这一节把本站支持的所有语法都过一遍（目录功能已在开头展示过，下面从标题到特殊符号逐一示例）。
+下面把这个网站支持的语法完整过一遍（目录在开头已经演示过）。这部分既是说明，也是你排版时的参照。
 
 ### 标题层级
 
-用 `#` 的数量表示层级，从一级到六级：
+`#` 的数量代表层级，从一级到六级：
 
 ```text
 # 一级标题 H1（文章大标题，由元数据 title 渲染）
@@ -142,7 +136,7 @@ git push origin main
 ###### 六级标题 H6
 ```
 
-本文大标题就是 H1、周围章节就是 H2/H3，下面再真实渲染一下 H4–H6：
+本页大标题就是 H1、周围章节就是 H2/H3，下面再真实渲染一下 H4–H6：
 
 #### 四级标题 H4
 
@@ -163,18 +157,18 @@ git push origin main
 - <u>下划线 underline</u> 与 <small>小号文字 small</small>
 - 自动链接：https://github.com/Hiweny
 
-> 硬换行演示：第一行后面跟两个空格  
+> 硬换行演示：第一行末尾留两个空格  
 > 就能手动换到下一行。
 
 ### 链接
 
 - 行内式：[Hiweny 的 GitHub](https://github.com/Hiweny)
-- 带标题：[打开我的主页](https://hiweny.github.io/Hiweny-s-web/ "标题提示文字")
-- 参考式：[我的收藏夹][col]，引用在文末定义
+- 带标题：[打开我的主页](https://hiweny.github.io/Hiweny-s-web/ "鼠标悬停的提示文字")
+- 参考式：链接到我站内的另一篇文章 [我的 Collection 文章][col]，引用在文末定义——这就是**文章之间互相串联**的方式。
 
 ### 图片
 
-外链图片（直接用图片 URL，懒加载、圆角阴影、悬停上浮）：
+直接贴图片 URL 即可，会懒加载，带圆角、阴影和悬停上浮；站点默认以无 referrer 方式加载，多数图床都能正常显示：
 
 ![示例图片](https://ps.ssl.qhmsg.com/t0227fad5259da8ae35.jpg "可以加标题")
 
@@ -200,32 +194,31 @@ git push origin main
 
 - [x] 已完成的任务
 - [x] 支持 Markdown 驱动
-- [ ] 待办：写一篇新文章
-- [ ] 待办：部署到 GitHub Pages
+- [ ] 待办：再写一篇新文章
+- [ ] 待办：慢慢把项目文章补齐
 
 ### 引用块
 
 > 单行引用。
-
-> 多行引用第一行，用来观察背景玻璃质感与左侧渐变竖条。
+> 多行引用第一行，用来观察背景的玻璃质感与左侧渐变竖条。
 >
-> 第二行，中间空行形成新段落。
+> 第二行，中间空一行形成新段落。
 >
-> > 嵌套引用。
+> > 还能继续嵌套引用。
 
 ### 代码块（语法高亮 + 复制按钮）
+
+围栏开头标注语言，就有语法高亮，右上角自带一键复制：
 
 ```ts
 interface User {
   name: string;
   age: number;
 }
-
 const greet = (user: User): string => {
   // 模板字符串与注释高亮
   return `Hello, ${user.name}! You are ${user.age}.`;
 };
-
 console.log(greet({ name: 'Hiweny', age: 18 }));
 ```
 
@@ -236,14 +229,13 @@ def fibonacci(n: int) -> list[int]:
     for _ in range(n - 2):
         seq.append(seq[-1] + seq[-2])
     return seq[:n]
-
 print(fibonacci(10))  # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 ```
 
 ```bash
-# 克隆并启动一个项目
-git clone https://github.com/Hiweny/ai-chat.git
-cd ai-chat
+# 克隆这个网站本身
+git clone https://github.com/Hiweny/Hiweny-s-web.git
+cd Hiweny-s-web
 npm install
 npm run dev
 ```
@@ -275,24 +267,25 @@ npm run dev
 
 ### 表格（GFM，含对齐）
 
+用冒号控制三列的对齐方式：
+
 | 左对齐 | 居中对齐 | 右对齐 |
 | :--- | :---: | ---: |
-| QQbot | 机器人 | 2026-08-23 |
-| Collection | 收藏夹 | 2026-04-24 |
-| AI Chat | 对话应用 | 2026-07-25 |
-| MoeGallery | 图库 | 2026-07-27 |
+| 苹果 | Apple | 2026-01-01 |
+| 香蕉 | Banana | 2026-02-14 |
+| 樱桃 | Cherry | 2026-09-05 |
 
 ### 原生 HTML（rehype-raw）
 
+除了 Markdown 语法，也能直接写 HTML，会被正常渲染：
+
 <details>
 <summary>点击展开 / 折叠</summary>
-
-这里是折叠面板里的内容，可以放**任意 Markdown**：
+折叠面板里照样能放**任意 Markdown**：
 
 - 列表项
 - `代码`
 - [链接](https://github.com/Hiweny)
-
 </details>
 
 <blockquote>
@@ -301,11 +294,10 @@ HTML 与 Markdown 混排：<strong>粗体</strong>、<em>斜体</em>、<code>cod
 
 ### 脚注（GFM）
 
-这里有一个带编号的脚注引用[^1]，再来一个[^longnote]。
+这里有一个带编号的脚注引用[^1]，再来一个长一点的[^longnote]。
 
 [^1]: 这是第一条脚注的解释文字。
-
-[^longnote]: 较长的脚注也可以写成多段，渲染时会自动汇总到文末。
+[^longnote]: 较长的脚注也能写成多段，渲染时会自动汇总到文章末尾。
 
 ### 分割线
 
@@ -313,13 +305,13 @@ HTML 与 Markdown 混排：<strong>粗体</strong>、<em>斜体</em>、<code>cod
 
 ### 目录（TOC）
 
-在文章任意位置写一个 `## 目录`，网站会自动**提取之后的所有标题**生成一份可点击跳转的目录（本页开头就是现成例子）。
+在任意位置写一个 `## 目录`，网站会自动提取它后面的标题，生成一份可点击、平滑滚动的目录（本页开头就是例子）；英文版写 `## Table of Contents` 同理。
 
 ### 转义与特殊符号
 
-特殊字符转义：\*不是斜体\*、\# 不是标题、\` 不是代码、反斜杠 \\ 本身。
+想原样显示符号时用反斜杠转义：\*不是斜体\*、\# 不是标题、\` 不是代码、反斜杠 \\ 本身。
 
-箭头 →、省略号 …、破折号 ——、乘号 ×、版权 ©、温度 ℃。
+另外这些符号可以直接用：箭头 →、省略号 …、破折号 ——、乘号 ×、版权 ©、温度 ℃。
 
 ### 超长行 / 横向滚动
 
@@ -329,129 +321,129 @@ HTML 与 Markdown 混排：<strong>粗体</strong>、<em>斜体</em>、<code>cod
 
 ## 结束语
 
-从 DeepSeek 里的一条竖线开始，到现在拥有一个属于自己的、会渲染 Markdown 的网站，这条路走得很随性，也很有意思。
+从 DeepSeek 回复里的一条竖线开始，到现在拥有一个会把 Markdown 渲染成我喜欢模样的网站，这条路走得很随性，也很有意思。
 
-以后我只要把想法扔给 AI，它照着这篇文章的规则，就能帮我把一篇篇「我的文章」写出来；而我，继续负责**看**和**挑**就好。
+以后我只要把零散的想法丢给 AI，它对照这篇范本，就能帮我产出一篇篇「我的文章」；而我继续负责出主意，以及最后**看一眼、挑一挑**。
 
-谢谢你读到这里。如果你也是一位 AI，现在，你知道该怎么为我写文章了吧？😄
+谢谢你读到这里。如果你正是来帮我写文章的那位 AI——现在，你知道该交付什么样的 Markdown 了吧？😄
 
-[col]: https://hiweny.github.io/collection/ "雪线之上 · 图片收藏夹"
+[col]: https://hiweny.github.io/Hiweny-s-web/articles/collection "我的图片收藏夹项目文章"
 
 <!-- EN -->
 
-> This post has **three identities**: it is my Markdown beginner's story, a ghost-writing manual for any AI that writes for me, and a full showcase of every syntax this site supports. Hand it to an AI and it will know exactly how to write articles for me.
+> First off, this is **an article of mine** about how I met Markdown. But it is also a **template**: I'm too lazy to typeset by hand, so I hand this to an AI and have it write Markdown in my style. Read it as an essay, or use it as the spec for ghost-writing for me.
 
 ## Table of Contents
 
 ## What is Markdown?
 
-Markdown is a **lightweight markup language**: with the simplest plain-text symbols, you can write articles that are clear in structure and beautiful in layout.
+Markdown is a **lightweight markup language**: with the simplest plain-text symbols you can write articles that are clearly structured and nicely laid out.
 
-The first time I heard the name, I had no idea what it was. Something like "marking down"? Actually **Markdown = Mark + down**, named after *markup* languages, turning complex typesetting into symbols you can type without thinking. It wasn't until I used it that it all clicked — and I first truly met it in a conversation with **DeepSeek**.
+When I first heard the name I had no idea what it meant. "Marking down"? In fact **Markdown = Mark + down**, a play on *markup* languages — it turns fancy typesetting into symbols you can type without thinking. It only clicked once I started using it, and that happened in a chat with **DeepSeek**.
 
 ## How I met Markdown
 
-In DeepSeek's replies I found **rich styling**: bold text, lists, code boxes — all neat and tidy. Question by question, I learned Markdown through conversation.
+I was surprised to find such **rich styling** in DeepSeek's replies: bold, lists, code boxes, all neat. One question at a time, I picked up Markdown through those conversations.
 
 ### The blockquote I fell for
 
-My first love was the **blockquote** — a vertical bar followed by text. It looked so clean:
+First I fell for the **blockquote** — a vertical bar followed by text, so clean:
 
-> One vertical bar, a line of text — its own little world.
+> One bar, one line — its own little world.
 
-And it nests:
+And it nests, like Russian dolls:
 
 > Outer quote.
 >
 > > Inner quote, layer by layer.
 > >
-> > > One more level in, like Russian dolls.
+> > > One level deeper.
 
 ### Code blocks: copy with one click
 
-Then came **code blocks**. So convenient — commands, configs, snippets, wrapped in a box with a **one-click copy** button:
+Then came **code blocks** — commands and configs in a box with a **one-click copy** button:
 
 ```bash
 git push origin main
 ```
 
+Tap once and it's mine. So handy.
+
 ### The horizontal rule
 
-And the **horizontal rule** — a single line that breaks up content and gives the article a rhythm:
+And the **horizontal rule**, a single line that gives an article room to breathe:
 
 ---
 
+One block above, one below, a line in between — reading gets a rhythm.
+
 ### More Markdown beyond DeepSeek
 
-Markdown is everywhere. In **GitHub READMEs** I saw more styles; I read many Markdown blogs too. Same language, rendered completely differently — **content is written in Markdown, style is decided by the renderer**.
+Markdown is everywhere. In **GitHub READMEs** I saw more of it; I read plenty of Markdown blogs too, each styled in its own way. I realised: **content is written in Markdown, but the look is decided by whatever renders it.**
 
 ## I wanted my own Markdown
 
 A thought took root:
 
-> I want **my own Markdown** — a style of my own, used to record my projects, ideas and ramblings.
+> I want **my own Markdown** — a style that fits my taste, for recording my projects (like this one about my [image archive Collection](https://hiweny.github.io/Hiweny-s-web/articles/collection)), my ideas and my ramblings.
 
-And so this **website** — and this **article** — were born.
+And so this **website**, and **this article**, came to be.
 
-To be honest, I'm not really good at Markdown. I know some basic symbols, but that's about it. Mainly because I'm **too lazy to learn**, haha.
+To be honest, I'm not good at writing Markdown. I recognise the basic symbols, but setting it all out myself? Not really — mostly because I'm **too lazy to learn**, haha.
 
 ## I can't write it, but AI can
 
 No problem — **AI can**. It writes Markdown fluently, off the top of its head.
 
-But many AI clients don't render Markdown beautifully. So why not **hire a dedicated Markdown ghost-writer** — it writes, and my site renders it beautifully?
+Many AI clients just don't render Markdown beautifully, so I flipped it around: **the AI writes, my site renders it the way I like.** To make sure any AI gets it right in one shot, I put my tone, the supported syntax and the output format all in this article — it's the show flat I hand to my ghost-writer. Along the way I've quietly picked up some syntax myself.
 
-That's exactly what this article does: it documents my ideas, the syntax my site supports, and the writing rules. An AI reads it once and knows how to produce articles I'll love. Along the way, I've picked up some Markdown myself.
+## The rules I give my ghost-writing AI
 
-## The Markdown rules of this site
+If you're writing for me, read this carefully. My ask is simple: **hand me back one complete `.md` file**, not scattered notes. This very article is the template to match.
 
-If you are an AI (or someone who wants AI to write for me), read this section carefully. These are all the rules for writing an article here.
+### 1. Just deliver one .md file
 
-### 1. Where articles live
-
-- Put `.md` files in `src/content/articles/`;
-- **The file name is the URL**: `markdown.md` → `/articles/markdown` — use lowercase English, avoid Chinese file names;
-- Once pushed, the site rebuilds automatically and the home list **updates, newest first by date**.
+You don't need to worry about how the site builds, where the file goes, or deployment — that's engineering, and I've documented it in the project [README (rendered)](https://github.com/Hiweny/Hiweny-s-web/blob/main/README.md); if you're an AI that wants plain text, use the [raw README](https://raw.githubusercontent.com/Hiweny/Hiweny-s-web/main/README.md). Just write the Markdown below and give it to me; I publish it, the site rebuilds and slots it into the home list by date.
 
 ### 2. Frontmatter metadata
 
-The `---` block at the top controls what the home list shows:
+Every `.md` opens with a `---`-wrapped block that controls how it appears on the home list:
 
 | Field | Required | Purpose |
 | :--- | :---: | :--- |
-| `title` | ✅ | Chinese title |
+| `title` | ✅ | Chinese title — short and to the point |
 | `title_en` | recommended | English title, falls back to `title` |
-| `date` | ✅ | `YYYY-MM-DD`, **drives the reverse-chronological order** |
+| `date` | ✅ | `YYYY-MM-DD`, **drives reverse-chronological order** |
 | `tags` | recommended | Tag array, e.g. `["Markdown", "Writing"]` |
-| `excerpt` | recommended | One-line Chinese summary |
+| `excerpt` | recommended | One-line Chinese summary, keep it tight |
 | `excerpt_en` | recommended | English summary, falls back to `excerpt` |
-| `github` | optional | Repo URL → "view source" button |
-| `live` | optional | Live URL → "live demo" button |
+| `github` | optional | URL for the "view source" button |
+| `live` | optional | URL for the "live demo" button |
 
-> Change `date` and the order updates — **dates are metadata-driven**, no manual list to maintain.
+> Tweak `date` and the home order moves with it — **ordering is entirely date-driven**, no manual list. For project posts I usually take the source repo's creation date.
 
 ### 3. Bilingual writing
 
-- Chinese body first, English body after the `<!-- EN -->` marker;
-- `<!-- EN -->` is a special separator: Chinese on the left, English on the right;
-- Both must be complete and fluent — written independently, not word-for-word translations.
+- Chinese body first, English body after a marker `<!-- EN -->` that sits on its own line;
+- Both complete and fluent; the English is **re-expressed on its own**, not translated word by word;
+- For a single-language post, simply omit `<!-- EN -->`. To merely mention the marker in prose, write it as inline code `` `<!-- EN -->` `` so it isn't treated as the separator.
 
-### 4. My writing requirements
+### 4. What I expect from the draft
 
-1. **Use my words as the skeleton** — my ideas, experiences and opinions are the backbone;
-2. **Read the project** — for project articles, dig into the source and include real features and details;
-3. **Extend reasonably** — enrich based on my intent, including knowledge points, techniques and related concepts, adding background, principles and examples;
-4. **Use syntax as needed** — let headings, lists, tables, quotes and code serve the content, not the other way around;
-5. **Complete logic** — organize into a well-structured article;
-6. **Give an English version** — write the full English version after `<!-- EN -->`.
+1. **My words are the skeleton** — my ideas, experiences and opinions are the backbone; keep them and my stance;
+2. **Know the project** — for a project post, read the source and describe features that truly exist; never invent;
+3. **Extend sensibly** — add background, principles, examples and the technical points I raise, so a lay reader follows;
+4. **My voice, first person** — I am the author, narrate as "I"; you're the behind-the-scenes writer, don't step out as a bystander;
+5. **Syntax on demand** — let headings, lists, tables, quotes and code serve the content, not show off;
+6. **A complete piece** — a beginning and an end, smooth to read, with a standalone English version at the end.
 
 ## Full syntax showcase
 
-Everything this site supports, in one pass (TOC was demonstrated at the top).
+Here's every syntax the site supports (the TOC was shown up top). It's both explanation and your typesetting reference.
 
 ### Headings
 
-The number of `#` marks the level, from one to six:
+The number of `#` sets the level, one through six:
 
 ```text
 # H1 (the article title, rendered from the title metadata)
@@ -489,39 +481,50 @@ The page title is H1 and the sections around you are H2/H3; here are real H4–H
 ### Links
 
 - Inline: [Hiweny's GitHub](https://github.com/Hiweny)
-- With title: [My homepage](https://hiweny.github.io/Hiweny-s-web/ "title text")
-- Reference: [my collection][colref]
+- With title: [My homepage](https://hiweny.github.io/Hiweny-s-web/ "hover text")
+- Reference: link to another post on this site, [my Collection article][colref] — defined at the end. **This is how posts cross-link.**
 
 ### Images
+
+Just paste an image URL: lazy-loaded, rounded, shadowed, lifts on hover. The site loads without a referrer by default, so most image hosts work:
 
 ![Example image](https://ps.ssl.qhmsg.com/t0227fad5259da8ae35.jpg "with a title")
 
 ### Unordered lists
 
 - Level one
-  - Level two
-    - Level three
+  - Level two A
+  - Level two B
+    - Level three ①
+- Level two
 
 ### Ordered lists
 
 1. First
 2. Second
-   1. Sub 2.1
+3. Third
+   1. Sub 3.1
+   2. Sub 3.2
 
 ### Task lists (GFM)
 
 - [x] Done
-- [ ] Todo
+- [x] Markdown-driven
+- [ ] Todo: write another post
+- [ ] Todo: fill in project posts over time
 
 ### Blockquotes
 
 > A single-line quote.
-
-> Multi-line quote, with a blank line for a new paragraph.
+> A multi-line quote showing the glassy background and the gradient bar on the left.
 >
-> > Nested quote.
+> A blank line starts a new paragraph.
+>
+> > And it nests.
 
 ### Code blocks (highlighted + copy button)
+
+Tag the language after the fences for highlighting; the copy button is built in:
 
 ```ts
 const greet = (name: string): string => `Hello, ${name}!`;
@@ -531,33 +534,47 @@ const greet = (name: string): string => `Hello, ${name}!`;
 print(fibonacci(10))  # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 ```
 
+```bash
+# Clone this very site
+git clone https://github.com/Hiweny/Hiweny-s-web.git
+cd Hiweny-s-web
+npm install
+npm run dev
+```
+
 ```json
 { "name": "hiweny-site", "scripts": { "build": "vite build" } }
 ```
 
 ### Tables (GFM, with alignment)
 
+Colons control each column's alignment:
+
 | Left | Center | Right |
 | :--- | :---: | ---: |
-| QQbot | bot | 2026-08-23 |
-| Collection | archive | 2026-04-24 |
+| Apple | red | 2026-01-01 |
+| Banana | yellow | 2026-02-14 |
+| Cherry | dark red | 2026-09-05 |
 
 ### Raw HTML (rehype-raw)
 
+Beyond Markdown, plain HTML renders too:
+
 <details>
 <summary>Expand / collapse</summary>
+Any **Markdown** works inside:
 
-Content inside can use **any Markdown**:
-
-- list item
+- a list item
 - `code`
-- [link](https://github.com/Hiweny)
-
+- [a link](https://github.com/Hiweny)
 </details>
 
 ### Footnotes (GFM)
 
-Here is a footnote[^1] and another[^longnote].
+Here is a footnote[^1] and a longer one[^longnote].
+
+[^1]: The text of the first footnote.
+[^longnote]: A longer footnote can span sentences and gets collected at the end of the post.
 
 ### Horizontal rule
 
@@ -565,13 +582,13 @@ Here is a footnote[^1] and another[^longnote].
 
 ### Table of Contents (TOC)
 
-Write `## Table of Contents` anywhere and the site automatically builds a clickable TOC from all following headings (see the top of this page).
+Write `## Table of Contents` anywhere and the site builds a clickable, smooth-scrolling TOC from the headings after it (see the top of this page).
 
 ### Escapes & special characters
 
-\*not italic\*, \# not a heading, \` not code, backslash \\.
+Escape a symbol with a backslash to show it literally: \*not italic\*, \# not a heading, \` not code, the backslash \\ itself.
 
-Arrows →, ellipsis …, dashes ——, multiplication ×, copyright ©, degree ℃.
+These symbols work as-is: arrows →, ellipsis …, dashes ——, multiplication ×, copyright ©, degree ℃.
 
 ### Very long lines / horizontal scroll
 
@@ -581,10 +598,10 @@ A very very very very very very very very very very very very very very very lon
 
 ## Closing
 
-From a vertical bar in DeepSeek to owning a website that renders Markdown beautifully — the road has been casual and fun.
+It started with a single vertical bar in a DeepSeek reply, and now I have a site that renders Markdown exactly the way I like. The road was casual and fun.
 
-From now on, I just throw my ideas to an AI; it reads the rules in this article and writes my articles for me. I'll keep doing what I do best: **reading and picking**.
+From now on I toss my scattered thoughts to an AI; it matches this template and turns them into articles of mine. I keep doing what I'm good for: having the ideas, then **reading and picking**.
 
-Thanks for reading. And if you're an AI — now you know how to write for me. 😄
+Thanks for reading this far. And if you're the AI writing for me — now you know exactly what Markdown to hand back. 😄
 
-[colref]: https://hiweny.github.io/collection/ "Snowline · Image Archive"
+[colref]: https://hiweny.github.io/Hiweny-s-web/articles/collection "My image-archive project post"

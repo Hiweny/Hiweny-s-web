@@ -20,7 +20,7 @@ export interface ArticleMeta {
 }
 
 export interface Article {
-  /** File name without .md, e.g. qqbot → /articles/qqbot */
+  /** File name without .md, e.g. markdown → /articles/markdown */
   slug: string;
   meta: ArticleMeta;
   /** Raw Markdown body (both languages, split by the `<!-- EN -->` marker). */

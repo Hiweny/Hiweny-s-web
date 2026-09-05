@@ -8,6 +8,15 @@ Hiweny 的个人网站 —— 基于 Vite + React + TypeScript + Tailwind 构建
 
 ---
 
+## 它是怎么运转的（一分钟了解）
+
+- 这是一个 **Markdown 驱动**的个人网站：文章全部是 [`src/content/articles/`](src/content/articles/) 下的 `.md` 文件，由 [`src/content/articles.ts`](src/content/articles.ts) 在构建时用 `import.meta.glob` 一次性打包；主页按 frontmatter 的 `date` 自动倒序，详情页由 [`src/pages/ArticleDetailPage.tsx`](src/pages/ArticleDetailPage.tsx) 用 react-markdown 渲染（remark-gfm + rehype-highlight + remark-toc，代码块带一键复制）。
+- 页面上的**固定文案**（Hero / About / Contact / 导航等）是 React 组件 + i18n 中英词条，**不是** Markdown，改它们见下方「其他内容怎么改」。
+- 推送到 `main` 后 GitHub Actions 自动构建并部署到 GitHub Pages，全程无需本地操作。
+- 想让 AI 帮你写文章：把写作范本 [`src/content/articles/markdown.md`](src/content/articles/markdown.md) 连同本 README 一起发给它即可——前者规定语气、格式与语法，后者说明这些文件如何被网站收录与部署。
+
+---
+
 ## 开发
 
 ```bash
@@ -63,6 +72,15 @@ This is the English version of the article body.
 | `github` | 可选 | 详情页「查看源码」按钮 |
 | `live` | 可选 | 详情页「在线 Demo」按钮 |
 
+**`github` / `live` 怎么填：** 项目文章就填对应仓库地址与在线 Demo；非项目文章（随笔、说明等）可以让 `github` 指向这篇 `.md` 自身的 raw 链接（「查看源码」即查看 Markdown 原文）、`live` 指向网站首页，例如：
+
+```yaml
+github: https://raw.githubusercontent.com/Hiweny/Hiweny-s-web/main/src/content/articles/markdown.md
+live: https://hiweny.github.io/Hiweny-s-web
+```
+
+**文章之间互相串联：** 正文里用普通 Markdown 链接指向另一篇即可，地址写成 `https://hiweny.github.io/Hiweny-s-web/articles/<slug>`，其中 `<slug>` 就是对方的文件名（不含 `.md`）。
+
 **正文语言（中英双语）：** 用**独占一行**的 `<!-- EN -->` 分隔——它之前是中文、之后是英文，站点按浏览器语言自动切换；只写一种语言时不加该标记即可。英文版应独立成文、自然表达，而不是逐句机翻。若正文只是想提到 `<!-- EN -->` 这个字符串，用行内代码 `` `<!-- EN -->` `` 写就不会被当成分隔符。
 
 **注意：** `title` 和 `date` 必填，缺了文章不会正常显示。标题和 `excerpt` 尽量精简、突出核心（主页列表是扁平卡片，太长不好看）；文件名（即 slug）建议用英文、小写、单词间用连字符。
@@ -98,6 +116,31 @@ This is the English version of the article body.
 | 导航 / 板块名称 | 同上，`section.*` 与 `nav.*` |
 | 主题颜色 | [`src/styles/globals.css`](src/styles/globals.css) 的 CSS 变量 |
 | 站点图标 favicon | [`public/favicon.svg`](public/favicon.svg) |
+| 主页 3D 卡片轮换图 | 见下方「如何更换主页 3D 卡片（Lanyard）的轮换图片」一节 |
+
+---
+
+## 如何更换主页 3D 卡片（Lanyard）的轮换图片
+
+主页那张会随鼠标/重力摆动、**每次整页刷新换一张图**的 3D 吊牌，其图片是**打包进仓库的本地文件**，不是外链。
+
+**文件位置：** [`src/components/reactbits/Components/Lanyard/`](src/components/reactbits/Components/Lanyard/)，文件名形如 `lanyard-card-N.png`，轮换逻辑在同目录的 `Lanyard.tsx`。
+
+**关键：卡面不是普通整图，而是一张 2048×1536 的「图集」。** 3D 模型的卡片正面只采样左半的一个固定区域、背面采样右半的镜像区，所以新图必须先按这个布局「烘焙」，直接把竖图丢进去会错位或被拉伸：
+
+1. 新建一张 **2048×1536** 的白底画布；
+2. 把原图等比放大到**覆盖**（cover，保持比例、不要硬拉伸）正面框 **x = 1–1020、y = 6–1158（即 1019×1152）**，再居中裁掉溢出部分，人物即可不变形、居中且完整；
+3. 把左半（x 0–1023）水平翻转后贴到右半（x 1024–2047），作为卡片背面；
+4. 导出 PNG，存进上面的目录，命名为下一个 `lanyard-card-N.png`。
+
+> 用 Pillow 就能做：`Image.LANCZOS` 等比缩放 → 居中 crop 到 1019×1152 → 贴到 (1,6) → 左半 `transpose(Image.FLIP_LEFT_RIGHT)` 贴到 x=1024。原图尽量选竖图、主体居中，cover 时只会裁掉少量上下边缘背景。
+
+**让它参与轮换：** 打开 `Lanyard.tsx`——
+
+1. 顶部加一行 `import cardFaceN from './lanyard-card-N.png';`
+2. 把 `cardFaceN` 加进 `CARD_FACES` 数组；想删掉某张，就同时删掉图片文件、对应 import 和数组里的那一项。
+
+之后每次刷新会依据 `localStorage` 中记录的序号在 `CARD_FACES` 里**轮流切换**（读不到缓存时随机一张），数组里有几张就轮几张，无需改动其它代码。
 
 ---
 
@@ -110,4 +153,4 @@ This is the English version of the article body.
 1. **Settings → Pages → Build and deployment**，把 **Source** 设为 `GitHub Actions`。
 2. 站点托管在 `https://hiweny.github.io/Hiweny-s-web/`（仓库名决定子路径）。
 
-SPA 深链（如 `/articles/qqbot`）通过 `public/404.html` 的 404 重定向 + `index.html` 内的 shim 处理。
+SPA 深链（如 `/articles/markdown`）通过 `public/404.html` 的 404 重定向 + `index.html` 内的 shim 处理。

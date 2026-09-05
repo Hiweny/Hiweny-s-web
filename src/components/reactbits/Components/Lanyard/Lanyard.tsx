@@ -18,14 +18,16 @@ import * as THREE from 'three';
 // replace with your own imports, see the usage snippet for details
 import cardGLB from './card.glb';
 import lanyard from './lanyard.png';
-import cardFace1 from './lanyard-card-1.png';
 import cardFace2 from './lanyard-card-2.png';
 import cardFace3 from './lanyard-card-3.png';
+import cardFace4 from './lanyard-card-4.png';
+import cardFace5 from './lanyard-card-5.png';
+import cardFace6 from './lanyard-card-6.png';
 
-// Rotate the card face on every page load: cycle 1 -> 2 -> 3 -> 1 ...
+// Rotate the card face on every page load: cycle through all five faces ...
 // Picked ONCE per full page load (module singleton) so Suspense re-mounts of the
 // 3D scene don't advance the counter or preload the other faces.
-const CARD_FACES = [cardFace1, cardFace2, cardFace3];
+const CARD_FACES = [cardFace2, cardFace3, cardFace4, cardFace5, cardFace6];
 let pickedCardFace: string | undefined;
 const getCardFace = (): string => {
   if (pickedCardFace) return pickedCardFace;
